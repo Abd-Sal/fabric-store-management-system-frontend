@@ -1,0 +1,70 @@
+export const APIConfig = {
+    BASE_URL: "https://localhost:7093/api",
+    BASE_DOMAIN: "https://localhost:7093",
+    Auth: {
+        Login: "/auth"
+    },
+    Customer:{
+        Get: "/customers",
+        GetByID: (id) => `/customers/${id}`,
+        Create: "/customers",
+        Update: (id) => `/customers/${id}`,
+        Delete: (id) => `/customers/${id}`,
+        Activate: (id) => `/customers/${id}/activating`,
+        GetCustomerSales: (id) => `/customers/${id}/sales`,
+        EndpointDetails: "/customers"
+    },
+    Supplier:{
+        Get: "/suppliers",
+        GetByID: (id) => `/suppliers/${id}`,
+        Create: "/suppliers",
+        Update: (id) => `/suppliers/${id}`,
+        Delete: (id) => `/suppliers/${id}`,
+        Activate: (id) => `/suppliers/${id}/activating`,
+        GetSupplierPurchases: (id) => `/suppliers/${id}/purchases`,
+        EndpointDetails: "/suppliers"
+    },
+    Sales:{
+        Get: "/sales",
+        GetByID: (id) => `/sales/${id}`,
+        Create: "/sales",
+        Pay: (id) => `/sales/${id}/pay`,
+        Delete: (id) => `/sales/${id}`,
+        GetSaleByInvoice: (invoice) => `/sales/invoice?invoice-number=${invoice}`,
+        EndpointDetails: "/sales"
+    },
+    Purchases:{
+        Get: "/purchases",
+        GetByID: (id) => `/purchases/${id}`,
+        Create: "/purchases",
+        Pay: (id) => `/purchases/${id}/pay`,
+        Delete: (id) => `/purchases/${id}`,
+        GetPurchaseByInvoice: (invoice) => `/purchases/invoice?invoice-number=${invoice}`,
+        EndpointDetails: "/purchases"
+    },
+    Product:{
+        Get: "/products",
+        GetByID: (id) => `/products/${id}`,
+        Create: "/products",
+        GetProductInventory: (id) => `/products/${id}/inventory`,
+        GetProductStockTransactions: (id) => `/products/${id}/stock-transactions`,
+        ProductSales: (id) => `/products/${id}/sales`,
+        ProductPurchases: (id) => `/products/${id}/purchases`,
+        EndpointDetails: "/products"
+    },
+    Payment:{
+        Get: "/payments"
+    },
+    Catalog:{
+        Get: "/catalogs",
+        GetByID: (id) => `/catalogs/${id}`,
+        Create: "/catalogs",
+        CreateBySupplier: "/catalogs/by-supplier",
+        Purchase: "/catalogs/purchase-catalog",
+        Assing: `/catalogs/assign-catalog`,
+        Return: (id) => `/catalogs/${id}/return-catalog`,
+        Destroy: (id) => `/catalogs/${id}/destroy`,
+        Pay: (id) => `/catalogs/${id}/pay`,
+        EndpointDetails: "/catalogs"
+    }
+}

@@ -7,10 +7,10 @@ const Footer = () => {
         <Container fluid>
             <Row>
                 <Col lg={4} className="d-flex justify-content-center  justify-content-md-start align-items-center">
-                    <p className="mb-0"><strong>من تطوير:</strong> عبدالرحمن الصالح</p>
+                    <p className="mb-0"><strong>من تطوير :</strong> عبدالرحمن الصالح</p>
                 </Col>
                 <Col lg={4} className="d-flex justify-content-center justify-content-md-center align-items-center">
-                    <p className="mb-0"><strong>للتواصل مع المطور:</strong> 0982760361</p>
+                    <p className="mb-0"><strong>للتواصل مع المطور :</strong> 0982760361</p>
                 </Col>
                 <Col lg={4}>
                     <DeveloperSocial />

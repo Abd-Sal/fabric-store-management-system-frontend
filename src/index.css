@@ -44,3 +44,9 @@ li{
 .small-ico > img{
     object-fit: cover;
 }
+.notfound-404{
+    font-size: 200px;
+    font-weight: 700;
+    font-style: italic;
+    text-shadow:  0px 0px 20px #dc3545;
+}
