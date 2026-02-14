@@ -7,18 +7,12 @@ import { useNavigate } from "react-router-dom";
 import LoadingPartPage from "../Components/LoadingPartPage";
 import { LoginImplementations } from "../Code/LoginImplementations";
 import Alert from 'react-bootstrap/Alert';
-import * as yup from 'yup';
 import { OurRoutes } from "../Routes/OurRoutes";
-
-let loginSchema = yup.object().shape({
-  username: yup.string().required('اسم المستخدم مطلوب'),
-  password: yup.string().required('كلمة المرور مطلوبة')
-});
 
 const Login = () => {
   const {authInfo, setAuthInfo, isInitialized, setIsInitialized} = useContext(GlobalContext)
   const [isLoading, setIsLoading] = useState(false);
-  const [failer, setFailer] = useState('');
+  const [failer, setFailer] = useState({});
   const navigate = useNavigate();
   const implementations = LoginImplementations;
   const [auth, setAuth] = useState({
@@ -58,8 +52,9 @@ const Login = () => {
   }
 
   useEffect(()=>{
-    if(isInitialized && authInfo && Object.keys(authInfo).length > 0)
+    if(isInitialized && authInfo && Object.keys(authInfo).length > 0){
       navigate(OurRoutes.Home, {replace:true})
+    }
   }, [authInfo])
 
   if(!isInitialized)
@@ -72,7 +67,22 @@ const Login = () => {
               <div className="w-100 text-white p-3 border border-secondary rounded-2 bg-dark">
                 <h2 className="d-flex justify-content-center align-items-center mb-5">تسجبل الدخول</h2>
                 {
-                  failer && <Alert variant="danger" className="text-center">{failer}</Alert>
+                  Object.keys(failer).length > 0 &&
+                  <div className="w-100">
+                    <Alert variant="danger">
+                      <h5>{failer.title || 'فشل'}</h5>
+                      {
+                        failer.errors && Object.keys(failer.errors).length > 0 &&
+                        <ul className="list-unstyled mb-0 d-flex justify-content-start align-items-center flex-wrap">
+                          {
+                            Object.keys(failer.errors).map((key, index) => (
+                              <li key={index} className="w-100">{failer.errors[key]}</li>
+                            ))
+                          }
+                        </ul>
+                      }
+                    </Alert>
+                  </div>
                 }
                 <Form className="h-100 text-white w-100">
                   <Form.Group className="mb-3" controlId="formGroupEmail">

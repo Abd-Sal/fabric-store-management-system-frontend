@@ -9,8 +9,18 @@ export const LoginImplementations = {
             successBehavior(response.data);
             return true;
         }).catch((error)=>{
-            error.message = "فشل تسجيل الدخول، يرجى التحقق من اسم المستخدم وكلمة المرور والمحاولة مرة أخرى";
-            setFailer(error.message || 'فشل ');
+            if (error.response && error.response.data) {
+                const errorData = error.response.data;
+                setFailer({
+                    title: errorData.title || 'فشل في تسجيل الدخول للنظام',
+                    errors: errorData.errors || { General: ['حدث خطأ غير متوقع'] }
+                });
+            } else {
+                setFailer({
+                    title: 'فشل الاتصال بالخادم',
+                    errors: { General: [error.message || 'يرجى المحاولة مرة أخرى'] }
+                });
+            }            
         }).finally(()=>{
             setLoader(false);
         });
