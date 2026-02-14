@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Alert from 'react-bootstrap/Alert';
 
-const CreateProductModal = ({token, implementationsCreateProduct, addedProduct, setAddedProduct}) => {
+const CreateProductModal = ({token, implementationsCreateProduct, setAddedProduct, SpecialStyling=''}) => {
     const productSchema = Yup.object().shape({
         name: Yup.string()
         .nullable()
@@ -83,7 +83,7 @@ const CreateProductModal = ({token, implementationsCreateProduct, addedProduct, 
           title="اضافة منتج جديد"
           variant="primary"
           onClick={handleShow}
-          className="btn btn-success d-flex justify-content-center align-items-center ps-5 pe-5"
+          className={`btn btn-success d-flex justify-content-center align-items-center ps-5 pe-5 ${SpecialStyling}`}
         ><IoIosAddCircleOutline fontSize={25}/></Button>
         <Modal
           centered
@@ -295,7 +295,7 @@ const CreateProductModal = ({token, implementationsCreateProduct, addedProduct, 
           </Modal.Footer>
         </Modal>
       </div>
-  )
+    )
 }
 
 export default CreateProductModal

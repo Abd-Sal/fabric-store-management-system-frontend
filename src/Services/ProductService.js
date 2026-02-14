@@ -4,9 +4,6 @@ import axios from 'axios';
 export const ProductService = {
     AllProducts: ({token, page, pageSize, SortColumn, SortDir, From, To, Search, SearchColumn}) => {
         let url = `${APIConfig.BASE_URL}${APIConfig.Product.Get}?`;
-
-        let queryParams = new URLSearchParams();
-        queryParams.set('page', page)
         if(page && !isNaN(page)) url += `page=${page}&`;
         if(pageSize && !isNaN(pageSize)) url += `pageSize=${pageSize}&`;
         if(SortColumn) url += `sortColumn=${SortColumn}&`;

@@ -30,6 +30,7 @@ const PaginationFilterationSortingSearching = ({searchBy, sortBy, defaultSearchC
         if(filterSchema.fields.search.isValidSync(e.currentTarget.value)){
             setFilter({
                 ...filter,
+                page: 1,
                 search: e.currentTarget.value
             })
         }
@@ -39,6 +40,7 @@ const PaginationFilterationSortingSearching = ({searchBy, sortBy, defaultSearchC
         if(filterSchema.fields.searchBy.isValidSync(e.currentTarget.value)){
             setFilter({
                 ...filter,
+                page: 1,
                 searchBy: e.currentTarget.value
             })
         }
@@ -66,6 +68,7 @@ const PaginationFilterationSortingSearching = ({searchBy, sortBy, defaultSearchC
         if(filterSchema.fields.from.isValidSync(e.currentTarget.value)){
             setFilter({
                 ...filter,
+                page: 1,
                 from: new Date(e.currentTarget.value).toISOString().split('T')[0],
             })
         }
@@ -75,6 +78,7 @@ const PaginationFilterationSortingSearching = ({searchBy, sortBy, defaultSearchC
         if(filterSchema.fields.to.isValidSync(e.currentTarget.value)){
             setFilter({
                 ...filter,
+                page: 1,
                 to: new Date(e.currentTarget.value).toISOString().split('T')[0]
             })
         }
@@ -84,6 +88,7 @@ const PaginationFilterationSortingSearching = ({searchBy, sortBy, defaultSearchC
         if(filterSchema.fields.pageSize.isValidSync(e.currentTarget.value)){
             setFilter({
                 ...filter,
+                page: 1,
                 pageSize: e.currentTarget.value
             })
         }

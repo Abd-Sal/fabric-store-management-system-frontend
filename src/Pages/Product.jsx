@@ -1,5 +1,4 @@
 import { Col, Container, Row } from "react-bootstrap"
-import ProductsViewer from "../Components/Product/ProductsViewer"
 import CreateProductModal from "../Components/Product/CreateProductModal"
 import PaginationFilterationSortingSearching from "../Components/PaginationFilterationSortingSearching"
 import { use, useContext, useEffect, useState } from "react"
@@ -9,6 +8,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import PaginationButtons from "../Components/PaginationButtons"
+import DataViewer from "../Components/DataViewer"
 
 const Product = () => {
   const {authInfo} = useContext(GlobalContext)
@@ -127,28 +127,19 @@ const Product = () => {
           </Col>
         </Row>
         <Row>
-          {/* Product Form */}
-          <Col lg={12}>
-            <CreateProductModal 
-              token={authInfo.Token}
-              implementationsCreateProduct={implementations.CreatePorduct}
-              addedProduct={addedProduct}
-              setAddedProduct={setAddedProduct}
-            />
-          </Col>
-        </Row>
-        <Row>
           <Col lg={12}>
             {
               pagination.hasNextPage !== '' && pagination.hasPreviousPage !== '' &&
               !productFailer?
                 <Row>
                   <Col lg={3}>
-                    <div className="p-3 rounded border bg-success w-100 d-flex flex-wrap justify-content-center align-items-center gap-3">
-                      <p className="mb-0"><strong>الصفحة:</strong> {pagination.pageNumber}</p>
-                      <p className="mb-0"><strong>عدد الصفحات:</strong> {pagination.totalPages}</p>
-                      <p className="mb-0"><strong>عدد العناصر:</strong> {pagination.totalItems}</p>
-                    </div>
+                    <CreateProductModal 
+                      token={authInfo.Token}
+                      implementationsCreateProduct={implementations.CreatePorduct}
+                      addedProduct={addedProduct}
+                      setAddedProduct={setAddedProduct}
+                      SpecialStyling="w-100 p-3"
+                    />
                   </Col>
                   <Col lg={9}>
                       <PaginationButtons
@@ -156,11 +147,16 @@ const Product = () => {
                         pagination={pagination}
                         setFilter={setFilter}
                       />
+                    <div className="p-2 mt-2 rounded border bg-primary w-100 d-flex flex-wrap justify-content-start align-items-center gap-3">
+                      <p className="mb-0"><strong>الصفحة:</strong> {pagination.pageNumber}</p>
+                      <p className="mb-0"><strong>عدد الصفحات:</strong> {pagination.totalPages}</p>
+                      <p className="mb-0"><strong>عدد العناصر:</strong> {pagination.totalItems}</p>
+                    </div>
                   </Col>
                 </Row>
                 :
                 ''
-            }          
+            }
           </Col>
           {/* Filteration */}
           <Col lg={3}>
@@ -246,9 +242,61 @@ const Product = () => {
             }
             {
               productFailer === '' && !productLoader && products.length > 0 &&
-              <ProductsViewer
-                products={products}
+              <DataViewer 
+                specialStyle="mt-2"
+                headData={[
+                  {
+                    label: "المعرف",
+                    value: "id"
+                  },
+                  {
+                    label: "كود كامل",
+                    value: "productCode"
+                  },
+                  {
+                    label: "اسم المادة",
+                    value: "name", 
+                  },
+                  {
+                    label: "كود المادة",
+                    value: "code"
+                  },
+                  {
+                    label: "لون المادة",
+                    value: "color"
+                  },
+                  {
+                    label: "وحدة القياس",
+                    value: "unit"
+                  },
+                  {
+                    label: "مادة المنتج",
+                    value: "material"
+                  },
+                  {
+                    label: "تاريخ الاضافة",
+                    value: "createdAt",
+                    dateType: 'date',
+                    dateFormat: 'full'
+                  }
+                ]}
+                bodyData={products}
               />
+            }
+            {
+              pagination.hasNextPage !== '' && pagination.hasPreviousPage !== '' &&
+              !productFailer?
+                <Row>
+                  <Col lg={12}>
+                      <PaginationButtons
+                        filter={filter}
+                        pagination={pagination}
+                        setFilter={setFilter}
+                      />
+                  </Col>
+                </Row>
+                :
+                ''
             }
           </Col>
         </Row>

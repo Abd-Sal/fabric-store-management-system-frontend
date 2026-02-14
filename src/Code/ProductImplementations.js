@@ -36,7 +36,7 @@ export const ProductImplementations = {
             token: token,
             page: filter.page,
             pageSize: filter.pageSize,
-            Search: filter.search,
+            Search: filter.search.trim().length > 0 ? filter.search : '',
             SearchColumn: filter.searchBy,
             SortColumn: filter.sortBy,
             SortDir: filter.sortDir,
@@ -47,7 +47,7 @@ export const ProductImplementations = {
             const data = response.data;
             setProducts(data.items);
             setPagination({
-                pageNumber: data.pageNumber,
+                pageNumber: data.totalPages < filter.page ? 1 : data.pageNumber,
                 totalItems: data.totalItems,
                 totalPages: data.totalPages,
                 hasPreviousPage: data.hasPreviousPage,

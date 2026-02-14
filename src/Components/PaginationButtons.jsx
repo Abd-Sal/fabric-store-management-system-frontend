@@ -22,13 +22,13 @@ const PaginationButtons = ({pagination, filter, setFilter}) => {
     return (
     <div className="w-100 d-flex justify-content-between align-items-center">
         <Button
-            variant='primary'
+            variant={pagination.hasPreviousPage ? `primary` : 'dark'}
             onClick={handlePrev}
             disabled={!pagination.hasPreviousPage}
         >السابق</Button>
         <div>{pagination.pageNumber}</div>
         <Button
-            variant='primary'
+            variant={pagination.hasNextPage ? `primary` : 'dark'}
             onClick={handleNext}
             disabled={!pagination.hasNextPage}
         >التالي</Button>

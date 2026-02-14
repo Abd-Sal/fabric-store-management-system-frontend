@@ -1,7 +1,7 @@
 const ProductsViewer = ({products}) => {
   return (
     <div className="pt-3 rounded">
-      <div className="overflow-y-auto border-1 border-gray rounded">
+      <div className="border-1 border-gray rounded">
         <table className="table table-light table-hover table-border bg-gray table-striped">
           <thead className="">
             <tr className="text-center border-1 border-gray">
@@ -27,7 +27,7 @@ const ProductsViewer = ({products}) => {
                 <td className="border-1 border-gray">{product.color}</td>
                 <td className="border-1 border-gray">{product.unit}</td>
                 <td className="border-1 border-gray">{product.material ?? '---'}</td>
-                <td className="border-1 border-gray">{new Date(product.createdAt).toLocaleDateString()}</td>
+                <td className="border-1 border-gray">{new Date(product.createdAt).toLocaleString()}</td>
               </tr>
             ))}
           </tbody>

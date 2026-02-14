@@ -59,6 +59,7 @@ export const APIConfig = {
         Get: "/catalogs",
         GetByID: (id) => `/catalogs/${id}`,
         Create: "/catalogs",
+        Delete: (id) => `/catalogs/${id}`,
         CreateBySupplier: "/catalogs/by-supplier",
         Purchase: "/catalogs/purchase-catalog",
         Assing: `/catalogs/assign-catalog`,
