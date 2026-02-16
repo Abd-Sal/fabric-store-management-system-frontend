@@ -114,7 +114,7 @@ const Product = () => {
 
   useEffect(()=>{
     if(!addedProduct) return;
-    fillTableProducts();
+    fillProducts();
     setAddedProduct(false);
   }, [addedProduct])
 

@@ -16,7 +16,7 @@ export const ProductImplementations = {
             if (error.response && error.response.data) {
                 const errorData = error.response.data;
                 setFailer({
-                    title: errorData.title || 'فشل في عملية البحث عن المواد',
+                    title: errorData.title || 'فشل في عملية تحميل الفلاتر',
                     errors: errorData.errors || { General: ['حدث خطأ غير متوقع'] }
                 });
             } else {

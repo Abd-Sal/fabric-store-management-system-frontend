@@ -19,13 +19,25 @@ const DataViewer = ({specialStyle = '', headData=[], bodyData=[]}) => {
                                 headData.map((key, ind)=>(
                                     <td key={`${index}-${ind}`} className="border-1 border-gray">
                                         {
-                                            bodyD[key.value]?
-                                                key.hasOwnProperty('dateType') ?
-                                                    new Date(bodyD[key.value]).toLocaleString()
+                                            bodyD[key.value] ?
+                                                key.hasOwnProperty('dataType') ?
+                                                    (()=>{
+                                                        const dataType = key['dataType'];
+                                                        switch (dataType) {
+                                                            case 'date':
+                                                                return `${new Date(bodyD[key.value] + 'Z').toLocaleString()}`
+                                                            case 'bool':
+                                                                return <span className={`d-flex justify-content-center align-items-center p-3 rounded-5 ${bodyD[key.value] == true ? 'bg-success' : 'bg-danger'}`}></span>
+                                                            default:
+                                                                return bodyD[key.value]
+                                                        }
+                                                    })()
                                                     :
                                                     bodyD[key.value]
                                             :
-                                                "---"
+                                                key['dataType'] == 'bool' ?
+                                                    <span className={`d-flex justify-content-center align-items-center p-3 rounded-5 bg-danger`}></span>
+                                                : "---"
                                         }
                                     </td> 
                                 ))

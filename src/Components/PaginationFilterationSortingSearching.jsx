@@ -105,7 +105,7 @@ const PaginationFilterationSortingSearching = ({searchBy, sortBy, defaultSearchC
                     name="search"
                     id="search"
                     className="form-control"
-                    placeholder="ابحث عن منتج..."
+                    placeholder="ابحث ..."
                     onChange={handleSearch}
                     value={filter.search}
                 />
@@ -180,33 +180,38 @@ const PaginationFilterationSortingSearching = ({searchBy, sortBy, defaultSearchC
                 </select>
             </div>
 
-            {/* Date Range From*/}
-            <div className="form-group">
-                <label>من</label>
-                <input
-                    type="date"
-                    name="fromDate"
-                    id="fromDate"
-                    className="form-control"
-                    min={"2025-01-01"}
-                    onChange={handleFrom}
-                    value={filter.from}
-                />
-            </div>
-
-            {/* Date Range To*/}
-            <div className="form-group">
-                <label>الى</label>
-                <input
-                    type="date"
-                    name="toDate"
-                    id="toDate"
-                    className="form-control"
-                    min={"2025-01-01"}
-                    onChange={handleTo}
-                    value={filter.to}
-                />
-            </div>
+            {
+                Object.hasOwn(filter, 'from') &&
+                // Date Range From
+                <div className="form-group">
+                    <label>من</label>
+                    <input
+                        type="date"
+                        name="fromDate"
+                        id="fromDate"
+                        className="form-control"
+                        min={"2025-01-01"}
+                        onChange={handleFrom}
+                        value={filter.from}
+                    />
+                </div>
+            }
+            {
+                Object.hasOwn(filter, 'to') &&
+                // Date Range To
+                <div className="form-group">
+                    <label>الى</label>
+                    <input
+                        type="date"
+                        name="toDate"
+                        id="toDate"
+                        className="form-control"
+                        min={"2025-01-01"}
+                        onChange={handleTo}
+                        value={filter.to}
+                    />
+                </div>
+            }
         </form>
     </div>
   )
