@@ -1,9 +1,10 @@
 const DataViewer = ({specialStyle = '', headData=[], bodyData=[]}) => {
   return (
-    <div className={`${specialStyle} rounded border-1 border-gray`}>
-        <table className={`table-sm table table-light table-hover table-border bg-gray table-striped`}>
+    <div className={`${specialStyle} rounded border-1 border-gray`} style={{ overflowX: 'auto' }}>
+        <table className={`table-sm table table-light table-hover table-border bg-gray table-striped`} style={{ minWidth: '100%', width: 'max-content' }}>
             <thead>
                 <tr className="text-center border-1 border-gray">
+                    <th scope="col" className="border-1 border-gray">#</th>
                     {
                         headData.map((head, index)=>(
                           <th scope="col" key={index} className="border-1 border-gray">{head.label}</th>
@@ -15,6 +16,7 @@ const DataViewer = ({specialStyle = '', headData=[], bodyData=[]}) => {
                 {
                     bodyData.map((bodyD, index)=>(
                         <tr key={index} className="text-center border-1 border-gray">
+                            <td className="border-1 border-gray">{index + 1}</td>
                             {
                                 headData.map((key, ind)=>(
                                     <td key={`${index}-${ind}`} className="border-1 border-gray">

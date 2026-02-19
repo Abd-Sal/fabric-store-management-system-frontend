@@ -75,9 +75,9 @@ export const SupplierImplementations = {
         SupplierService.CreateSupplier({
             token: token,
             name: supplier.name,
-            email: supplier.email,
+            email: supplier.email == '' || supplier.email == null ? null : supplier.email,
             address: supplier.address,
-            phone: supplier.phone
+            phone: supplier.phone == '' || supplier.phone == null ? null : supplier.phone 
         })
         .then(response => {
             onSuccess();
@@ -98,5 +98,12 @@ export const SupplierImplementations = {
         }).finally(() => {
             setLoader(false);
         });
+    },
+    SupplierSearchForBill: ({token, search}) => {
+        let response = SupplierService.SearchSupplierForBill({
+            token: token,
+            search: search
+        })
+        return response;
     }
 }

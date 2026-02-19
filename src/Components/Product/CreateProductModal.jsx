@@ -1,8 +1,8 @@
 import { IoIosAddCircleOutline } from "react-icons/io";
+import Button from 'react-bootstrap/Button';
 import { Formik } from 'formik';
 import { useRef, useState } from 'react';
 import * as Yup from 'yup';
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Alert from 'react-bootstrap/Alert';
 
@@ -35,9 +35,8 @@ const CreateProductModal = ({token, implementationsCreateProduct, setAddedProduc
         .nullable()
         .max(150, 'مادة المنتج يجب أن تكون على الأكثر 150 حرف')
     });
-
-  const subRef = useRef(null);
-  const colorRef = useRef(null);
+    const subRef = useRef(null);
+    const colorRef = useRef(null);
     const [show, setShow] = useState(false);
     const handleClose = () => {
       setShow(false);

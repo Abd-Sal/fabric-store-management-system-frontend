@@ -1,7 +1,7 @@
 import { Col, Container, Row } from "react-bootstrap"
 import CreateProductModal from "../Components/Product/CreateProductModal"
 import PaginationFilterationSortingSearching from "../Components/PaginationFilterationSortingSearching"
-import { use, useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { ProductImplementations } from "../Code/ProductImplementations"
 import { GlobalContext } from "../Context/GlobalContext"
 import Spinner from 'react-bootstrap/Spinner';
@@ -123,7 +123,7 @@ const Product = () => {
       <Container fluid className="text-white">
         <Row>
           <Col lg={12}>
-            <h2 className="d-flex justify-content-center p-2 border-1 border-bottom border-gray">واجهةالمنتجات</h2>
+            <h2 className="d-flex justify-content-center p-2 border-1 border-bottom border-gray">واجهة فواتير المشتريات</h2>
           </Col>
         </Row>
         <Row>

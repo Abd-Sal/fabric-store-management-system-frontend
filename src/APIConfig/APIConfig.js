@@ -12,6 +12,7 @@ export const APIConfig = {
         Delete: (id) => `/customers/${id}`,
         Activate: (id) => `/customers/${id}/activating`,
         GetCustomerSales: (id) => `/customers/${id}/sales`,
+        CustomerSearchForBill: (search) => `/customers/search?name=${search}`,
         EndpointDetails: "/customers"
     },
     Supplier:{
@@ -22,6 +23,7 @@ export const APIConfig = {
         Delete: (id) => `/suppliers/${id}`,
         Activate: (id) => `/suppliers/${id}/activating`,
         GetSupplierPurchases: (id) => `/suppliers/${id}/purchases`,
+        SupplierSearchForBill: (search) => `/suppliers/search?name=${search}`,
         EndpointDetails: "/suppliers"
     },
     Sales:{
@@ -50,6 +52,7 @@ export const APIConfig = {
         GetProductStockTransactions: (id) => `/products/${id}/stock-transactions`,
         ProductSales: (id) => `/products/${id}/sales`,
         ProductPurchases: (id) => `/products/${id}/purchases`,
+        ProductSearchForBill: (search) => `/products/search?code=${search}`,
         EndpointDetails: "/products"
     },
     Payment:{

@@ -108,5 +108,12 @@ export const ProductImplementations = {
             }).finally(() => {});
         });
         setLoader(false);
+    },
+    ProductSearchForBill: ({token, search}) => {
+        let response = ProductService.SearchProductForBill({
+            token: token,
+            search: search
+        })
+        return response;
     }
 }

@@ -3,10 +3,18 @@ export const OurRoutes = {
     Login: '/sign-in',
     Logout: '/sign-out',
     Products: '/products',
-    Purchases: '/purchases',
+    Purchases:{
+        ShowAll: '/purchases/show',
+        Bill: '/purchases/new-bill',
+        ShowExpense: '/purchases/show-expense',
+        Expense: '/purchases/expense',
+    },
+    Sales: {
+        ShowAll: '/sales',
+        Bill: '/sales/new-bill',
+    },
     Customers: '/customers',
     Suppliers: '/suppliers',
-    Sales: '/sales',
     Catalogs: '/catalogs',
     Payments: "/payments"
 }

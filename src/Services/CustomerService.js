@@ -74,6 +74,15 @@ export const CustomerService = {
         });
         return response;
     },
+    SearchCustomerForBill: ({token, search})=>{
+        let url = `${APIConfig.BASE_URL}${APIConfig.Customer.CustomerSearchForBill(search)}`;
+        const response = axios.get(url,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response;
+    },
     EndpointsDetails: ({token}) => {
         let url = `${APIConfig.BASE_URL}${APIConfig.Customer.EndpointDetails}`;       
         const response = axios.options(url,{

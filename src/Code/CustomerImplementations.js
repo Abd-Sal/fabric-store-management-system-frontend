@@ -77,9 +77,9 @@ export const CustomerImplementations = {
             token: token,
             firstName: customer.firstName,
             lastName: customer.lastName,
-            email: customer.email,
+            email: customer.email == '' || customer.email == null ? null : customer.email,
             address: customer.address,
-            phone: customer.phone
+            phone: customer.phone == '' || customer.phone == null ? null : customer.phone 
         })
             .then(response => {
                 onSuccess();
@@ -100,5 +100,12 @@ export const CustomerImplementations = {
             }).finally(() => {
                 setLoader(false);
             });
+    },
+    CustomerSearchForBill: ({token, search}) => {
+        let response = CustomerService.SearchCustomerForBill({
+            token: token,
+            search: search
+        })
+        return response;
     }
 };

@@ -85,6 +85,15 @@ export const ProductService = {
         });
         return response;
     },
+    SearchProductForBill: ({token, search})=>{
+        let url = `${APIConfig.BASE_URL}${APIConfig.Product.ProductSearchForBill(search)}`;
+        const response = axios.get(url,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response;
+    },
     EndpointsDetails: ({token}) => {
         let url = `${APIConfig.BASE_URL}${APIConfig.Product.EndpointDetails}`;       
         const response = axios.options(url,{
