@@ -276,7 +276,7 @@ const Product = () => {
                   {
                     label: "تاريخ الاضافة",
                     value: "createdAt",
-                    dateType: 'date',
+                    dataType: 'date',
                     dateFormat: 'full'
                   }
                 ]}

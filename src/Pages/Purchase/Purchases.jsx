@@ -63,6 +63,20 @@ const Purchases = () => {
     });
   }
 
+  const dataMapper = (purchasesData=[]) => {
+    return purchasesData.map((purchase) => ({
+      id: purchase.id,
+      invoiceNumber: purchase.invoiceNumber,
+      productsCount: purchase.productsCount,
+      totalAmount: `${purchase.totalAmount}`,
+      paidAmount: `${purchase.paidAmount}`,
+      status: <div className={`p-2 pt-1 pb-1 text-white fw-bold rounded-4 ${purchase.status == 'Paid' ? 'bg-success' : purchase.status == 'NotCompleted' ? 'bg-warning' : 'bg-danger'}`}>{purchase.status == 'Paid' ? 'مكتمل' : purchase.status == 'NotCompleted' ? 'غير مكتمل' : 'غير مدفوع'}</div>,
+      supplierID: purchase.supplierID,
+      supplierName: purchase.supplierName,
+      createdAt: purchase.createdAt
+    }))
+  }
+
   useEffect(() => {
         const timer = setTimeout(() => {
           if(!finishInitializeFilter){
@@ -113,7 +127,7 @@ const Purchases = () => {
     <Container fluid className="text-white">
       <Row>
         <Col lg={12}>
-          <h2 className="d-flex justify-content-center p-2 border-1 border-bottom border-gray">واجهةالمنتجات</h2>
+          <h2 className="d-flex justify-content-center p-2 border-1 border-bottom border-gray">واجهةالفواتر</h2>
         </Col>
       </Row>
       <Row>
@@ -229,37 +243,41 @@ const Purchases = () => {
                   value: "id"
                 },
                 {
-                  label: "كود كامل",
-                  value: "purchaseCode"
+                  label: "رقم الفاتورة",
+                  value: "invoiceNumber"
                 },
                 {
-                  label: "اسم المادة",
-                  value: "name", 
+                  label: "عدد المواد",
+                  value: "productsCount", 
                 },
                 {
-                  label: "كود المادة",
-                  value: "code"
+                  label: "اجمالي المبلغ",
+                  value: "totalAmount"
                 },
                 {
-                  label: "لون المادة",
-                  value: "color"
+                  label: "المبلغ المدفوع",
+                  value: "paidAmount"
                 },
                 {
-                  label: "وحدة القياس",
-                  value: "unit"
+                  label: "حالة الدفع",
+                  value: "status"
                 },
                 {
-                  label: "مادة المنتج",
-                  value: "material"
+                  label: "معرف المورد",
+                  value: "supplierID"
                 },
                 {
-                  label: "تاريخ الاضافة",
+                  label: "اسم المورد",
+                  value: "supplierName"
+                },
+                {
+                  label: "تاريخ الفاتورة",
                   value: "createdAt",
-                  dateType: 'date',
+                  dataType: 'date',
                   dateFormat: 'full'
-                }
+                },
               ]}
-              bodyData={purchases}
+              bodyData={dataMapper(purchases)}
             />
           }
           {

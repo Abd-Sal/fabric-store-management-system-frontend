@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap"
 import { GlobalContext } from "../../Context/GlobalContext";
 import Button from 'react-bootstrap/Button';
@@ -8,6 +8,9 @@ import { ProductImplementations } from "../../Code/ProductImplementations";
 import { EmptyObjectChecker } from '../../HelperTools/EmptyObjectChecker'
 import { SupplierImplementations } from '../../Code/SupplierImplementations'
 import Modal from 'react-bootstrap/Modal';
+import { PurchaseImplementations } from '../../Code/PurchaseImplementations'
+import Spinner from 'react-bootstrap/Spinner';
+import Alert from 'react-bootstrap/Alert';
 
 const PurchaseBill = () => {
     const [show, setShow] = useState(false);
@@ -15,13 +18,16 @@ const PurchaseBill = () => {
     const handleShow = () => setShow(true);
 
     const {authInfo} = useContext(GlobalContext)
+    const [failer, setFailer] = useState({})
+    const [isLoading, setIsLoading] = useState(false)
     const [inputProductValue, setInputProductValue] = useState('');
     const [selectedProduct, setSelectedProduct] = useState(null)
     const [inputSupplierValue, setInputSupplierValue] = useState('');
     const [selectedSupplier, setSelectedSupplier] = useState(null)
     const [billDetails, setBillDetails] = useState([])
-
+    const [paidAmount, setPaidAmount] = useState(0)
     const productImplementations = ProductImplementations;
+    const purchaseImplementations = PurchaseImplementations;
     const productSearcher = (query) => {
         return productImplementations.ProductSearchForBill({
             token: authInfo.Token,
@@ -83,7 +89,7 @@ const PurchaseBill = () => {
         billDetails.forEach((item) => {
             sum +=  parseFloat(item.total)
         })
-        return sum.toFixed(2);
+        return sum.toFixed(3);
     }
     const handleSetQuantity = (e) => {
         let inpValue = e.currentTarget.value;
@@ -102,7 +108,7 @@ const PurchaseBill = () => {
             setSelectedProduct(prev => {
                 const unitPrice = parseFloat(prev?.value?.unitPrice) || 0;
                 const quantity = parseFloat(inpValue) || 0;
-                const total = (quantity * unitPrice).toFixed(2);
+                const total = (quantity * unitPrice).toFixed(3);
                 return {
                     ...prev,
                     value: {
@@ -132,7 +138,7 @@ const PurchaseBill = () => {
             setSelectedProduct(prev => {
                 const quantity = parseFloat(prev?.value?.quantity) || 0;
                 const unitPrice = parseFloat(inpValue) || 0;
-                const total = (quantity * unitPrice).toFixed(2);                
+                const total = (quantity * unitPrice).toFixed(3);                
                 return {
                     ...prev,
                     value: {
@@ -154,6 +160,41 @@ const PurchaseBill = () => {
         setSelectedSupplier(null)
         setInputSupplierValue('')
         setInputProductValue('')
+        setPaidAmount(0)
+    }
+    const handlePaidAmount = (e) => {
+        let inpValue = e.currentTarget.value;
+        if(inpValue === '') {
+            setPaidAmount('')
+            return;
+        }
+        if(/^\d*\.?\d{0,3}$/.test(inpValue)) {
+            let amount = parseFloat(calculateTotalBillAmount());
+            let paid = parseFloat(inpValue);
+            if(paid <= amount){
+                setPaidAmount(inpValue)
+            }
+        }
+    }
+    const handleCreateBill = () => {
+        const purchaseItems = billDetails.map(item => ({
+            productID: item.id,
+            quantity: parseFloat(item.quantity),
+            unitCost: parseFloat(item.unitPrice)
+        }))
+        const bill = {
+            supplierID: selectedSupplier.value.id,
+            paidAmount: parseFloat(paidAmount),
+            purchaseItems: purchaseItems
+        }
+        console.log(bill);
+        purchaseImplementations.CreatePurchase({
+            token: authInfo.Token,
+            bill: bill,
+            setFailer: setFailer,
+            setLoader: setIsLoading,
+            onSuccess: handleClearBill
+        })
     }
 
     return (
@@ -218,13 +259,15 @@ const PurchaseBill = () => {
 
                         {/* Paid Amount */}
                         <div className={`form-group w-100 ${billDetails.length == 0 ? 'd-none' : '' }`}>
-                            <label htmlFor="">المبلغ المدفوع</label>
+                            <label htmlFor="paid-amount">المبلغ المدفوع</label>
                             <input
-                                type="number"
+                                id="paid-amount"
+                                type="text"
                                 className="form-control"
-                                min={0}
-                                max={100000}
-                                defaultValue={0}
+                                onInput={handlePaidAmount}
+                                disabled={EmptyObjectChecker(selectedSupplier)}
+                                value={paidAmount}
+                                placeholder="0.00$"
                             />
                         </div>
                     </div>
@@ -312,6 +355,46 @@ const PurchaseBill = () => {
                 </Col>
             </Row>
             <Row>
+                <Modal
+                    show={isLoading}
+                    onHide={isLoading}
+                    backdrop="static"
+                    keyboard={false}
+                >
+                    <Modal.Header
+                        className="bg-danger text-white"
+                    >
+                        <Modal.Title>جاري الحفظ</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body
+                        className="bg-danger text-white"
+                    >
+                        <Spinner animation="border" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                    </Modal.Body>
+                </Modal>
+                <Col lg={12}>
+                {
+                    Object.keys(failer).length > 0 &&
+                    <div className="w-100">
+                        <Alert variant="danger">
+                        <h5>{failer.title || 'فشل'}</h5>
+                        {
+                            failer.errors && Object.keys(failer.errors).length > 0 &&
+                            <ul className="list-unstyled mb-0 d-flex justify-content-start align-items-center flex-wrap">
+                            {
+                                Object.keys(failer.errors).map((key, index) => (
+                                <li key={index} className="w-100">{failer.errors[key]}</li>
+                                ))
+                            }
+                            </ul>
+                        }
+                        <Button onClick={handleCreateBill} variant="danger">اعادة المحاولة</Button>
+                        </Alert>
+                    </div>
+                }
+                </Col>
                 <Col lg={3}></Col>
                 <Col lg={6}>
                     <div className={`d-flex justify-content-between align-items-center gap-3 mt-2 mb-2 ${billDetails.length == 0 ? 'd-none' : ''}`}>
@@ -323,7 +406,8 @@ const PurchaseBill = () => {
                         <Button
                             className="w-50"
                             variant="success"
-                            disabled={EmptyObjectChecker(selectedSupplier) || billDetails.length == 0}
+                            disabled={EmptyObjectChecker(selectedSupplier) || paidAmount == '' || billDetails.length == 0}
+                            onClick={handleCreateBill}
                         >حفظ</Button>
                     </div>
                 </Col>

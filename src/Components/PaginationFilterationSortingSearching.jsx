@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 
 const PaginationFilterationSortingSearching = ({searchBy, sortBy, defaultSearchCol, defaultSortCol, filter, setFilter, pagination}) => {
@@ -24,6 +25,11 @@ const PaginationFilterationSortingSearching = ({searchBy, sortBy, defaultSearchC
         pageSize: Yup
             .number()
             .oneOf([5, 10, 20, 50, 100], "الحقل غير مسموح به")
+    });
+
+    const [dateRange, setDateRange] = useState({
+        from: '',
+        to: ''
     });
 
     const handleSearch = (e) => {
@@ -66,21 +72,21 @@ const PaginationFilterationSortingSearching = ({searchBy, sortBy, defaultSearchC
 
     const handleFrom = (e) => {
         if(filterSchema.fields.from.isValidSync(e.currentTarget.value)){
-            setFilter({
-                ...filter,
-                page: 1,
-                from: new Date(e.currentTarget.value).toISOString().split('T')[0],
+            let from = new Date(e.currentTarget.value).toISOString().split('T')[0]
+            setDateRange({
+                ...dateRange,
+                from: from
             })
         }
     }
 
     const handleTo = (e) => {
         if(filterSchema.fields.to.isValidSync(e.currentTarget.value)){
-            setFilter({
-                ...filter,
-                page: 1,
-                to: new Date(e.currentTarget.value).toISOString().split('T')[0]
-            })
+            let to = new Date(e.currentTarget.value).toISOString().split('T')[0]
+            setDateRange({
+                ...dateRange,
+                to: to
+            });
         }
     }
 
@@ -93,6 +99,18 @@ const PaginationFilterationSortingSearching = ({searchBy, sortBy, defaultSearchC
             })
         }
     }
+
+    useEffect(()=>{
+        if(dateRange.from && dateRange.to){
+            console.log(dateRange);
+            setFilter({
+                ...filter,
+                page: 1,
+                from: dateRange.from,
+                to: dateRange.to,
+            })            
+        }
+    }, [dateRange])
 
     return (
     <div className="p-3 border-1 border-danger rounded">
@@ -192,7 +210,7 @@ const PaginationFilterationSortingSearching = ({searchBy, sortBy, defaultSearchC
                         className="form-control"
                         min={"2025-01-01"}
                         onChange={handleFrom}
-                        value={filter.from}
+                        value={filter.from || dateRange.from}
                     />
                 </div>
             }
@@ -208,7 +226,7 @@ const PaginationFilterationSortingSearching = ({searchBy, sortBy, defaultSearchC
                         className="form-control"
                         min={"2025-01-01"}
                         onChange={handleTo}
-                        value={filter.to}
+                        value={filter.to || dateRange.to}
                     />
                 </div>
             }
