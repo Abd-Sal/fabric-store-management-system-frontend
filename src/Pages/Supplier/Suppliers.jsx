@@ -1,16 +1,16 @@
-import { Col, Container, Row } from "react-bootstrap"
-import CreateCustomerModal from "../Components/Customer/CreateCustomerModal"
-import PaginationFilterationSortingSearching from "../Components/PaginationFilterationSortingSearching"
-import { use, useContext, useEffect, useState } from "react"
-import { CustomerImplementations } from "../Code/CustomerImplementations"
-import { GlobalContext } from "../Context/GlobalContext"
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
-import PaginationButtons from "../Components/PaginationButtons"
-import DataViewer from "../Components/DataViewer"
+import { useContext, useEffect, useState } from "react"
+import { Col, Container, Row } from "react-bootstrap"
+import { GlobalContext } from "../../Context/GlobalContext"
+import PaginationButtons from "../../Components/Common/PaginationButtons"
+import DataViewer from "../../Components/Common/DataViewer"
+import { SupplierImplementations } from "../../Code/SupplierImplementations"
+import PaginationFilterationSortingSearching from "../../Components/Common/PaginationFilterationSortingSearching"
+import CreateSupplierModal from "../../Components/Supplier/CreateSupplierModal"
 
-const Customers = () => {
+const Suppliers = () => {
   const {authInfo} = useContext(GlobalContext)
   const [isLoading, setIsLoading] = useState(false);
   const [failer, setFailer] = useState({});
@@ -18,9 +18,9 @@ const Customers = () => {
   const [sortBy, setSortBy] = useState([]);
   const [defaultSearchCol, setDefaultSearchCol] = useState({});
   const [defaultSortCol, setDefaultSortCol] = useState({});
-  const [customers, setCustomers] = useState([]);
-  const [customerLoader, setCustomerLoader] = useState(false);
-  const [customerFailer, setCustomerFailer] = useState({});
+  const [suppliers, setSuppliers] = useState([]);
+  const [supplierLoader, setSupplierLoader] = useState(false);
+  const [supplierFailer, setSupplierFailer] = useState({});
   const [filter, setFilter] = useState({
     search: '',
     searchBy: defaultSearchCol.value || '',
@@ -38,8 +38,8 @@ const Customers = () => {
   })
   const [finishInitializeFilter, setFinishInitializeFilter] = useState(false);
   const [includeOnlyActive, setIncludeOnlyActive] = useState(true)
-  const [addedCustomer, setAddedCustomer] = useState(false);
-  const implementations = CustomerImplementations;
+  const [addedSupplier, setAddedSupplier] = useState(false);
+  const implementations = SupplierImplementations;
 
   const fillEndpointDetails = ()=>{  
     implementations.FillSearchAndSort({
@@ -53,19 +53,19 @@ const Customers = () => {
     });
   }
 
-  const fillCustomers = ()=>{
-    implementations.FillCustomerTable({
+  const fillSuppliers = ()=>{
+    implementations.FillSupplierTable({
       token: authInfo.Token,
-      setFailer: setCustomerFailer,
-      setLoader: setCustomerLoader,
-      setCustomers: setCustomers,
+      setFailer: setSupplierFailer,
+      setLoader: setSupplierLoader,
+      setSuppliers: setSuppliers,
       filter: filter,
       setPagination: setPagination,
       includeOnlyActive: includeOnlyActive
     });
   }
 
-  const handleChangeIncludedCustomers = (e) =>
+  const handleChangeIncludedSuppliers = (e) =>
       setIncludeOnlyActive(!includeOnlyActive)
 
   useEffect(() => {
@@ -82,14 +82,14 @@ const Customers = () => {
               setFinishInitializeFilter(true);
             } 
           }else
-            fillCustomers();
+            fillSuppliers();
         }, 500);
         return () => clearTimeout(timer);
   }, [filter, includeOnlyActive])
 
   useEffect(() => {
     if (!finishInitializeFilter) return;
-    fillCustomers();
+    fillSuppliers();
   }, [finishInitializeFilter])
 
   useEffect(() => {
@@ -115,30 +115,29 @@ const Customers = () => {
   }, [])
 
   useEffect(()=>{
-    if(!addedCustomer) return;
-    fillCustomers();
-    setAddedCustomer(false);
-  }, [addedCustomer])
-  
+    if(!addedSupplier) return;
+    fillSuppliers();
+    setAddedSupplier(false);
+  }, [addedSupplier])
   return (
     <Container fluid>
       <Row>
         <Col lg={12}>
-          <h2 className="text-white d-flex justify-content-center p-2 border-1 border-bottom border-gray">واجهة الزبائن</h2>
+          <h2 className="text-white d-flex justify-content-center p-2 border-1 border-bottom border-gray">واجهة الموردين</h2>
         </Col>
       </Row>
       <Row className="text-white">
         <Col lg={12}>
           {
             pagination.hasNextPage !== '' && pagination.hasPreviousPage !== '' &&
-            !customerFailer?
+            !supplierFailer?
               <Row>
                 <Col lg={3}>
-                  <CreateCustomerModal 
+                  <CreateSupplierModal 
                     token={authInfo.Token}
-                    implementationsCreateCustomer={implementations.CreateCustomer}
-                    addedCustomer={addedCustomer}
-                    setAddedCustomer={setAddedCustomer}
+                    implementationsCreateSupplier={implementations.CreateSupplier}
+                    addedSupplier={addedSupplier}
+                    setAddedSupplier={setAddedSupplier}
                     SpecialStyling="w-100 p-3"
                   />
                 </Col>
@@ -155,12 +154,11 @@ const Customers = () => {
                     <label 
                       htmlFor="includeOnlyActive"
                       className={`d-flex justify-content-center align-items-center p-2 w-100 btn btn-danger ${includeOnlyActive && 'opacity-50 border border-primary'}`}  
-                      title={`${includeOnlyActive ? 'تضمين' : 'الغاء'}`}
                     >{
                       includeOnlyActive ?
-                      'تضمين الزبائن المحظرين'
+                      'تضمين الموردين المحظرين'
                       :
-                      'الغاء تضمين الزبائن المحظورين'
+                      'الغاء تضمين الموردين المحظورين'
                     }</label>
                     <input
                       hidden
@@ -169,7 +167,7 @@ const Customers = () => {
                       name="includeOnlyActive"
                       value={includeOnlyActive}
                       checked={includeOnlyActive}
-                      onChange={handleChangeIncludedCustomers}
+                      onChange={handleChangeIncludedSuppliers}
                     />
                     </div>
                   </form>
@@ -233,10 +231,10 @@ const Customers = () => {
             />
           }
         </Col>
-        {/* Customers Table */}
+        {/* Suppliers Table */}
         <Col lg={9}>
           {
-            customerLoader &&
+            supplierLoader &&
             <div className="w-100 h-100 d-flex justify-content-center align-items-center">
               <Spinner animation="border" role="status">
                 <span className="visually-hidden">Loading...</span>
@@ -244,32 +242,32 @@ const Customers = () => {
             </div>
           }
           {
-            Object.keys(customerFailer).length > 0 &&
+            Object.keys(supplierFailer).length > 0 &&
             <div className="w-100">
               <Alert variant="danger">
-                <h5>{customerFailer.title || 'فشل'}</h5>
+                <h5>{supplierFailer.title || 'فشل'}</h5>
                 {
-                  customerFailer.errors && Object.keys(customerFailer.errors).length > 0 &&
+                  supplierFailer.errors && Object.keys(supplierFailer.errors).length > 0 &&
                   <ul className="list-unstyled mb-0 d-flex justify-content-start align-items-center flex-wrap">
                     {
-                      Object.keys(customerFailer.errors).map((key, index) => (
-                        <li key={index} className="w-100">{customerFailer.errors[key]}</li>
+                      Object.keys(supplierFailer.errors).map((key, index) => (
+                        <li key={index} className="w-100">{supplierFailer.errors[key]}</li>
                       ))
                     }
                   </ul>
                 }
-                <Button onClick={fillCustomers} variant="danger">اعادة المحاولة</Button>
+                <Button onClick={fillSuppliers} variant="danger">اعادة المحاولة</Button>
               </Alert>
             </div>
           }
           {
-            customerFailer === '' && !customerLoader && customers.length === 0 &&
+            supplierFailer === '' && !supplierLoader && suppliers.length === 0 &&
             <Alert variant="warning" className="text-center">
               لا يوجد بيانات موردين لعرضها.
             </Alert>
           }
           {
-            customerFailer === '' && !customerLoader && customers.length > 0 &&
+            supplierFailer === '' && !supplierLoader && suppliers.length > 0 &&
             <DataViewer 
               specialStyle="mt-2"
               headData={[
@@ -279,11 +277,7 @@ const Customers = () => {
                 },
                 {
                   label: "الاسم",
-                  value: "firstName",
-                },
-                {
-                  label: "اسم العائلة",
-                  value: "lastName",
+                  value: "name",
                 },
                 {
                   label: "البريد الالكتروني",
@@ -309,12 +303,12 @@ const Customers = () => {
                   dateFormat: 'full'
                 },
               ]}
-              bodyData={customers}
+              bodyData={suppliers}
             />
           }
           {
             pagination.hasNextPage !== '' && pagination.hasPreviousPage !== '' &&
-            !customerFailer?
+            !supplierFailer?
               <Row>
                 <Col lg={12}>
                     <PaginationButtons
@@ -333,4 +327,4 @@ const Customers = () => {
   )
 }
 
-export default Customers
+export default Suppliers

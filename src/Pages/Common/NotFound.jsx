@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { Col, Container, Row } from "react-bootstrap"
 import Button from 'react-bootstrap/Button';
-import { GlobalContext } from "../Context/GlobalContext";
+import { GlobalContext } from "../../Context/GlobalContext";
 import { useNavigate } from "react-router-dom";
-import { OurRoutes } from "../Routes/OurRoutes";
+import { OurRoutes } from "../../Routes/OurRoutes";
 
 const NotFound = () => {
     const {isInitialized} = useContext(GlobalContext)

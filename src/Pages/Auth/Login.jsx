@@ -2,12 +2,12 @@ import { Col, Container, Row } from "react-bootstrap"
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useContext, useEffect, useState } from "react";
-import { GlobalContext } from "../Context/GlobalContext";
+import { GlobalContext } from "../../Context/GlobalContext";
 import { useNavigate } from "react-router-dom";
-import LoadingPartPage from "../Components/LoadingPartPage";
-import { LoginImplementations } from "../Code/LoginImplementations";
+import LoadingPartPage from "../../Components/Common/LoadingPartPage";
+import { LoginImplementations } from "../../Code/LoginImplementations";
 import Alert from 'react-bootstrap/Alert';
-import { OurRoutes } from "../Routes/OurRoutes";
+import { OurRoutes } from "../../Routes/OurRoutes";
 
 const Login = () => {
   const {authInfo, setAuthInfo, isInitialized, setIsInitialized} = useContext(GlobalContext)

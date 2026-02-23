@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import LoadingPartPage from "../Components/LoadingPartPage";
+import LoadingPartPage from "../Components/Common/LoadingPartPage";
 
 export const GlobalContext = createContext(null);
 

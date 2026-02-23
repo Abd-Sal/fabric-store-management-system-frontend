@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react"
-import { GlobalContext } from "../Context/GlobalContext"
-import { LogoutImplementations } from "../Code/LogoutImplementations"
+import { GlobalContext } from "../../Context/GlobalContext"
+import { LogoutImplementations } from "../../Code/LogoutImplementations"
 import { useNavigate } from "react-router-dom"
-import { OurRoutes } from "../Routes/OurRoutes"
+import { OurRoutes } from "../../Routes/OurRoutes"
 
 const Logout = () => {
   const {setAuthInfo, setIsInitialized, isInitialized} = useContext(GlobalContext)

@@ -1,13 +1,13 @@
 import { Col, Container, Row } from "react-bootstrap"
-import PaginationFilterationSortingSearching from "../../Components/PaginationFilterationSortingSearching"
+import PaginationFilterationSortingSearching from "../../Components/Common/PaginationFilterationSortingSearching"
 import { useContext, useEffect, useState } from "react"
 import { PurchaseImplementations } from "../../Code/PurchaseImplementations"
 import { GlobalContext } from "../../Context/GlobalContext"
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
-import PaginationButtons from "../../Components/PaginationButtons"
-import DataViewer from "../../Components/DataViewer"
+import PaginationButtons from "../../Components/Common/PaginationButtons"
+import DataViewer from "../../Components/Common/DataViewer"
 
 const Purchases = () => {
   const {authInfo} = useContext(GlobalContext)

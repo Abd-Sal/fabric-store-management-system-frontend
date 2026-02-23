@@ -10,7 +10,7 @@ export const OurRoutes = {
         Expense: '/purchases/expense',
     },
     Sales: {
-        ShowAll: '/sales',
+        ShowAll: '/sales/show',
         Bill: '/sales/new-bill',
     },
     Customers: '/customers',
