@@ -16,7 +16,6 @@ const PurchaseBill = () => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
     const {authInfo} = useContext(GlobalContext)
     const [failer, setFailer] = useState({})
     const [isLoading, setIsLoading] = useState(false)
@@ -98,7 +97,7 @@ const PurchaseBill = () => {
                 ...prev,
                 value: {
                     ...prev.value,
-                    quantity: '',
+                    quantity: '0',
                     total: '0'
                 }
             }));
@@ -127,7 +126,7 @@ const PurchaseBill = () => {
                 ...prev,
                 value: {
                     ...prev?.value,
-                    unitPrice: '',
+                    unitPrice: '0',
                     total: '0'
                 }
             }));
@@ -165,7 +164,7 @@ const PurchaseBill = () => {
     const handlePaidAmount = (e) => {
         let inpValue = e.currentTarget.value;
         if(inpValue === '') {
-            setPaidAmount('')
+            setPaidAmount('0')
             return;
         }
         if(/^\d*\.?\d{0,3}$/.test(inpValue)) {
@@ -187,7 +186,6 @@ const PurchaseBill = () => {
             paidAmount: parseFloat(paidAmount),
             purchaseItems: purchaseItems
         }
-        console.log(bill);
         purchaseImplementations.CreatePurchase({
             token: authInfo.Token,
             bill: bill,
@@ -196,6 +194,13 @@ const PurchaseBill = () => {
             onSuccess: handleClearBill
         })
     }
+
+    useEffect(()=>{
+        setDiscount(0)
+        setPaidAmount(0)
+        if(billDetails.length == 0 && (discount != 0 || paidAmount != 0))
+            setSelectedCustomer(null)
+    }, [billDetails])
 
     return (
         <Container fluid className="text-white">
@@ -406,7 +411,7 @@ const PurchaseBill = () => {
                         <Button
                             className="w-50"
                             variant="success"
-                            disabled={EmptyObjectChecker(selectedSupplier) || paidAmount == '' || billDetails.length == 0}
+                            disabled={EmptyObjectChecker(selectedSupplier)}
                             onClick={handleCreateBill}
                         >حفظ</Button>
                     </div>

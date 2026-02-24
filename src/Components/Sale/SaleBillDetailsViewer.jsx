@@ -1,5 +1,4 @@
-const PurchaseBillDetailsViewer = ({specialStyle = '', billDetails = [], setBillDetails}) => {
-
+const SaleBillDetailsViewer = ({specialStyle = '', billDetails = [], setBillDetails}) => {
     return (
         <div className={`${specialStyle} rounded border-1 border-gray`} style={{ overflowX: 'auto', overflowY: 'auto' }}>
             <table className={`table-sm table table-light table-hover table-border bg-gray table-striped`} style={{ minWidth: '100%', width: 'max-content'}}>
@@ -34,7 +33,7 @@ const PurchaseBillDetailsViewer = ({specialStyle = '', billDetails = [], setBill
                                 <td key={`${detail.id}-${index}-${Math.random()}`} className="border-1 border-gray">
                                     {parseFloat(detail.quantity).toFixed(3)}
                                 </td>
-                                <td key={`${detail.id}-${index}-${Math.random()}`} className="border-1 border-gray  fw-bold">
+                                <td key={`${detail.id}-${index}-${Math.random()}`} className="border-1 border-gray text-success fw-bold">
                                     {parseFloat(detail.total).toFixed(3)}$
                                 </td>
                                 <td key={`${detail.id}-${index}-${Math.random()}`} className="border-1 border-gray">
@@ -49,4 +48,4 @@ const PurchaseBillDetailsViewer = ({specialStyle = '', billDetails = [], setBill
     )
 }
 
-export default PurchaseBillDetailsViewer
+export default SaleBillDetailsViewer
