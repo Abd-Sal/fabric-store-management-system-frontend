@@ -18,6 +18,8 @@ import NotFound from './Pages/Common/NotFound';
 import { OurRoutes } from './Routes/OurRoutes';
 import PurchaseBill from './Pages/Purchase/PurchaseBill';
 import SaleBill from './Pages/Sale/SaleBill';
+import CreateCatalog from './Pages/Catalog/CreateCatalog';
+import CatalogsByCustomer from './Pages/Catalog/CatalogsByCustomer';
 
 function App() {
   const {isInitialized} = useContext(GlobalContext)
@@ -34,7 +36,9 @@ function App() {
           <Route path={OurRoutes.Payments} element={isInitialized ? <Payments /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Customers} element={isInitialized ? <Customers /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Suppliers} element={isInitialized ? <Suppliers /> : <Navigate to={OurRoutes.Login} replace />} />
-          <Route path={OurRoutes.Catalogs} element={isInitialized ? <Catalogs /> : <Navigate to={OurRoutes.Login} replace />} />
+          <Route path={OurRoutes.Catalogs.ShowAll} element={isInitialized ? <Catalogs /> : <Navigate to={OurRoutes.Login} replace />} />
+          <Route path={OurRoutes.Catalogs.ShowByCustomer} element={isInitialized ? <CatalogsByCustomer /> : <Navigate to={OurRoutes.Login} replace />} />
+          <Route path={OurRoutes.Catalogs.Create} element={isInitialized ? <CreateCatalog /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Products} element={isInitialized ? <Product /> : <Navigate to={OurRoutes.Login} replace />} />
         </Route>
         <Route path='*' element={<NotFound />} />

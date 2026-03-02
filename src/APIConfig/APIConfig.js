@@ -53,6 +53,7 @@ export const APIConfig = {
         ProductSales: (id) => `/products/${id}/sales`,
         ProductPurchases: (id) => `/products/${id}/purchases`,
         ProductSearchForBill: (search) => `/products/search?code=${search}`,
+        GetProductsByCode: (code) => `/products/get-by-code?code=${code}`,
         EndpointDetails: "/products"
     },
     Payment:{

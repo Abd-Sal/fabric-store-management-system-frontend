@@ -378,7 +378,7 @@ const SaleBill = () => {
                         <div className={`form-group w-100 ${EmptyObjectChecker(selectedProduct) ? 'd-none' : ''}`}>
                             <label htmlFor="unit-price">سعر الوحدة</label>
                             <input
-                                id="quantity"
+                                id="unit-price"
                                 type="text"
                                 className={`form-control text-center ${(EmptyObjectChecker(selectedProduct) || !Object.hasOwn(selectedProduct.value, 'unitPrice') ? 0 : selectedProduct.value.unitPrice) == 0 ? 'bg-danger' : ''}`}
                                 value={EmptyObjectChecker(selectedProduct) || !Object.hasOwn(selectedProduct.value, 'unitPrice') ? '0' : selectedProduct.value.unitPrice}

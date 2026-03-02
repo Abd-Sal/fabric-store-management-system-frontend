@@ -15,6 +15,10 @@ export const OurRoutes = {
     },
     Customers: '/customers',
     Suppliers: '/suppliers',
-    Catalogs: '/catalogs',
+    Catalogs: {
+        ShowAll: '/catalogs/show',
+        ShowByCustomer: '/catalogs/show-by-customer',
+        Create: '/catalogs/create'
+    },
     Payments: "/payments"
 }

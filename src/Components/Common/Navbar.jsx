@@ -24,6 +24,7 @@ function ColorSchemesExample() {
                 <Nav className="me-auto d-flex justify-content-center align-items-center gap-4">
                     <Nav.Link as={NavLink} to={OurRoutes.Home} end>الرئيسية</Nav.Link>
                     <Nav.Link as={NavLink} to={OurRoutes.Products}>المنتجات</Nav.Link>
+                    {/* Purchases */}
                     <Dropdown>
                       <Dropdown.Toggle variant="dark" id="dropdown-basic">
                         مصاريف
@@ -35,6 +36,7 @@ function ColorSchemesExample() {
                         <Dropdown.Item as={NavLink} to={OurRoutes.Purchases.Expense}>تسجيل مصاريف محل <IoIosAddCircleOutline fontSize={25}/></Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
+                    {/* Sales */}
                     <Dropdown>
                       <Dropdown.Toggle variant="dark" id="dropdown-basic">
                         المبيعات
@@ -47,7 +49,17 @@ function ColorSchemesExample() {
                     <Nav.Link as={NavLink} to={OurRoutes.Payments}>العمليات</Nav.Link>
                     <Nav.Link as={NavLink} to={OurRoutes.Customers}>الزبائن</Nav.Link>
                     <Nav.Link as={NavLink} to={OurRoutes.Suppliers}>الموردين</Nav.Link>
-                    <Nav.Link as={NavLink} to={OurRoutes.Catalogs}>الكاتالوكات</Nav.Link>
+                    {/* Catalogs */}
+                    <Dropdown>
+                      <Dropdown.Toggle variant="dark" id="dropdown-basic">
+                        الكاتالوكات
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Dropdown.Item as={NavLink} to={OurRoutes.Catalogs.ShowAll}>تصفح الكاتالوغات <VscPreview fontSize={20}/></Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to={OurRoutes.Catalogs.ShowByCustomer}>تصفح الكاتالوغات الزبائن <VscPreview fontSize={20}/></Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to={OurRoutes.Catalogs.Create}>كاتالوغ جديد <IoIosAddCircleOutline fontSize={25}/></Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                 </Nav>
             </div>
             <div className='w-25 d-flex justify-content-end align-items-center'>            

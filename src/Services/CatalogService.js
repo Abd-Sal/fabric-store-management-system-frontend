@@ -31,7 +31,7 @@ export const CatalogService = {
     CreateCatalogOfStock: ({token, description = null, items}) => {
         let url = `${APIConfig.BASE_URL}${APIConfig.Catalog.Create}`;
         const response = axios.post(url, {
-            description: description,
+            description: description ? description : null,
             items: items
         },{
             headers: {
@@ -53,13 +53,13 @@ export const CatalogService = {
         });
         return response;
     },
-    PurchaseCatalog: ({token, supplierID, description = null, items, price, paidAmount}) => {
+    PurchaseCatalog: ({token, supplierID, description = null, items, amount, paidAmount}) => {
         let url = `${APIConfig.BASE_URL}${APIConfig.Catalog.Purchase}`;
         const response = axios.post(url, {
             supplierID: supplierID,
             description: description,
             items: items,
-            price: price,
+            amount: amount,
             paidAmount: paidAmount
         },{
             headers: {

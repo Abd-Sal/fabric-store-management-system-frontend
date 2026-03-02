@@ -115,5 +115,26 @@ export const ProductImplementations = {
             search: search
         })
         return response;
+    },
+    GetProductsByCode: ({token, code, setProducts, setLoader, handleShow}) => {
+        setLoader(true);
+        ProductService.GetProductsByCode({
+            token: token,
+            code: code
+        })        
+        .then(response => {
+            const data = response.data;
+            setProducts(data);
+        })
+        .catch(error => {
+            if (error.response && error.response.data) {
+                const errorData = error.response.data;
+                handleShow(errorData.title || 'فشل في تحميل المواد', errorData.errors ? Object.values(errorData.errors).flat().join(' - ') : 'حدث خطأ غير متوقع', 'bg-danger text-white', ()=>{});
+            } else {
+                handleShow('فشل الاتصال بالخادم', error.message || 'يرجى المحاولة مرة أخرى', 'bg-danger text-white', ()=>{});
+            }
+        }).finally(() => {
+            setLoader(false);
+        });
     }
 }

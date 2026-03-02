@@ -94,6 +94,15 @@ export const ProductService = {
         });
         return response;
     },
+    GetProductsByCode: ({token, code}) => {
+        let url = `${APIConfig.BASE_URL}${APIConfig.Product.GetProductsByCode(code)}`;
+        const response = axios.get(url,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response;
+    },
     EndpointsDetails: ({token}) => {
         let url = `${APIConfig.BASE_URL}${APIConfig.Product.EndpointDetails}`;       
         const response = axios.options(url,{
