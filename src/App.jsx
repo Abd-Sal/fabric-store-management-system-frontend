@@ -20,6 +20,9 @@ import PurchaseBill from './Pages/Purchase/PurchaseBill';
 import SaleBill from './Pages/Sale/SaleBill';
 import CreateCatalog from './Pages/Catalog/CreateCatalog';
 import CatalogsByCustomer from './Pages/Catalog/CatalogsByCustomer';
+import ProductDetails from './Pages/Product/ProductDetails';
+import PurchaseDetails from './Pages/Purchase/PurchaseDetails';
+import SaleDetails from './Pages/Sale/SaleDetails';
 
 function App() {
   const {isInitialized} = useContext(GlobalContext)
@@ -29,8 +32,10 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route path={OurRoutes.Home} element={isInitialized ? <Home /> : <Navigate to={OurRoutes.Login} replace />} />
+          <Route path={OurRoutes.Purchases.Details} element={isInitialized ? <PurchaseDetails /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Purchases.ShowAll} element={isInitialized ? <Purchases /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Purchases.Bill} element={isInitialized ? <PurchaseBill /> : <Navigate to={OurRoutes.Login} replace />} />
+          <Route path={OurRoutes.Sales.Details} element={isInitialized ? <SaleDetails /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Sales.ShowAll} element={isInitialized ? <Sales /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Sales.Bill} element={isInitialized ? <SaleBill /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Payments} element={isInitialized ? <Payments /> : <Navigate to={OurRoutes.Login} replace />} />
@@ -40,6 +45,7 @@ function App() {
           <Route path={OurRoutes.Catalogs.ShowByCustomer} element={isInitialized ? <CatalogsByCustomer /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Catalogs.Create} element={isInitialized ? <CreateCatalog /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Products} element={isInitialized ? <Product /> : <Navigate to={OurRoutes.Login} replace />} />
+          <Route path={OurRoutes.ProductDetails} element={isInitialized ? <ProductDetails /> : <Navigate to={OurRoutes.Login} replace />} />
         </Route>
         <Route path='*' element={<NotFound />} />
         <Route path={OurRoutes.Login} element={<Login />} />

@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { IoMdLogOut } from "react-icons/io";
 import { OurRoutes } from '../../Routes/OurRoutes';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -9,7 +9,6 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import { VscPreview } from "react-icons/vsc";
 
 function ColorSchemesExample() {
-  const navigate = useNavigate();
   return (
     <>
       <Navbar bg="dark" data-bs-theme="dark">
@@ -56,7 +55,6 @@ function ColorSchemesExample() {
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
                         <Dropdown.Item as={NavLink} to={OurRoutes.Catalogs.ShowAll}>تصفح الكاتالوغات <VscPreview fontSize={20}/></Dropdown.Item>
-                        <Dropdown.Item as={NavLink} to={OurRoutes.Catalogs.ShowByCustomer}>تصفح الكاتالوغات الزبائن <VscPreview fontSize={20}/></Dropdown.Item>
                         <Dropdown.Item as={NavLink} to={OurRoutes.Catalogs.Create}>كاتالوغ جديد <IoIosAddCircleOutline fontSize={25}/></Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>

@@ -101,5 +101,61 @@ export const SaleImplementations = {
         }).finally(() => {
             setLoader(false);
         });
+    },
+    SaleDetails: ({token, id, setSaleDetails, setLoader, setFailer}) => {
+        setLoader(true)
+        setFailer(null)
+        SaleService.SaleByID({
+            token: token,
+            id: id
+        })
+        .then(response => {
+            const data = response.data;
+            setSaleDetails(data);
+        })
+        .catch(error => {
+            if (error.response && error.response.data) {
+                const errorData = error.response.data;
+                setFailer({
+                    title: errorData.title || 'فشل في تحميل معلومات المخزون',
+                    errors: errorData.errors || { General: ['حدث خطأ غير متوقع'] }
+                });
+            } else {
+                setFailer({
+                    title: 'فشل الاتصال بالخادم',
+                    errors: { General: [error.message || 'يرجى المحاولة مرة أخرى'] }
+                });
+            }
+        }).finally(() => {
+            setLoader(false);
+        });
+    },
+    PaySale: ({token, id, paidAmount, setLoader, setFailer, onSuccess}) => {
+        setLoader(true)
+        setFailer(null)
+        SaleService.PaySale({
+            id: id,
+            token: token,
+            paidAmount: paidAmount
+        })
+        .then(response => {
+            onSuccess()
+        })
+        .catch(error => {
+            if (error.response && error.response.data) {
+                const errorData = error.response.data;
+                setFailer({
+                    title: errorData.title || 'فشل في تحميل معلومات المخزون',
+                    errors: errorData.errors || { General: ['حدث خطأ غير متوقع'] }
+                });
+            } else {
+                setFailer({
+                    title: 'فشل الاتصال بالخادم',
+                    errors: { General: [error.message || 'يرجى المحاولة مرة أخرى'] }
+                });
+            }
+        }).finally(() => {
+            setLoader(false);
+        });        
     }
 }

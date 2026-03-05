@@ -281,6 +281,13 @@ const Product = () => {
                   }
                 ]}
                 bodyData={products}
+                goToDetails={(e) => {
+                  const row = e.target.closest('tr');
+                  if (row) {
+                    const id = row.id.split('-')[1];
+                    window.open(`/products/${products[id].id}/details`, '_blank');
+                  }
+                }}
               />
             }
             {

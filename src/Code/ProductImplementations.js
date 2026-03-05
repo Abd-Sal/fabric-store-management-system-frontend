@@ -136,5 +136,73 @@ export const ProductImplementations = {
         }).finally(() => {
             setLoader(false);
         });
-    }
+    },
+    GetProductTransactions: ({token, id, setTransactions, setLoader, setFailer, page, pageSize, setPagination}) => {
+        setLoader(true);
+        setFailer(null);
+        ProductService.ProductStockTransactions({
+            token: token,
+            id: id,
+            page: page,
+            pageSize: pageSize
+        })
+        .then(response => {
+            const data = response.data;
+            setTransactions(data.items);
+            setPagination((prev) => {
+                return {
+                    ...prev,
+                    pageNumber: data.totalPages < page ? 1 : data.pageNumber,
+                    totalItems: data.totalItems,
+                    totalPages: data.totalPages,
+                    hasPreviousPage: data.hasPreviousPage,
+                    hasNextPage: data.hasNextPage
+                }
+            })
+        })
+        .catch(error => {
+            if (error.response && error.response.data) {
+                const errorData = error.response.data;
+                setFailer({
+                    title: errorData.title || 'فشل في تحميل معاملات المنتج',
+                    errors: errorData.errors || { General: ['حدث خطأ غير متوقع'] }
+                });
+            } else {
+                setFailer({
+                    title: 'فشل الاتصال بالخادم',
+                    errors: { General: [error.message || 'يرجى المحاولة مرة أخرى'] }
+                });
+            }
+        }).finally(() => {
+            setLoader(false);
+        });
+    },
+    ProductDetails: ({token, id, setProductDetails, setLoader, setFailer}) => {
+        setLoader(true);
+        setFailer(null);
+        ProductService.ProductInventory({
+            token: token,
+            id: id
+        })
+        .then(response => {
+            const data = response.data;
+            setProductDetails(data);
+        })
+        .catch(error => {
+            if (error.response && error.response.data) {
+                const errorData = error.response.data;
+                setFailer({
+                    title: errorData.title || 'فشل في تحميل معلومات المخزون',
+                    errors: errorData.errors || { General: ['حدث خطأ غير متوقع'] }
+                });
+            } else {
+                setFailer({
+                    title: 'فشل الاتصال بالخادم',
+                    errors: { General: [error.message || 'يرجى المحاولة مرة أخرى'] }
+                });
+            }
+        }).finally(() => {
+            setLoader(false);
+        });
+    },
 }

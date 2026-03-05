@@ -18,7 +18,10 @@ const ProductsViewer = ({products}) => {
           </thead>
           <tbody>
             {products.map((product, index) => (
-              <tr key={index} className="text-center border-1 border-gray">
+              <tr
+                key={index}
+                className="text-center border-1 border-gray"
+              >
                 <th scope="row">{index + 1}</th>
                 <td className="border-1 border-gray">{product.id}</td>
                 <td className="border-1 border-gray">{product.productCode}</td>

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap"
 import { GlobalContext } from "../../Context/GlobalContext";
 import Button from 'react-bootstrap/Button';
@@ -196,10 +196,10 @@ const PurchaseBill = () => {
     }
 
     useEffect(()=>{
-        setDiscount(0)
-        setPaidAmount(0)
-        if(billDetails.length == 0 && (discount != 0 || paidAmount != 0))
-            setSelectedCustomer(null)
+        if(billDetails.length == 0 && paidAmount != 0){
+            setPaidAmount(0)
+            setSelectedSupplier(null)
+        }
     }, [billDetails])
 
     return (

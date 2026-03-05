@@ -74,14 +74,14 @@ export const CatalogImplementations = {
     CreateCatalogOfStock: ({token, request, setLoader, handleShow, catalogCount}) => {
         let successCount = 0;
         setLoader(true);
-        for (let index = 0; index < catalogCount.length; index++) {
+        for (let index = 0; index < catalogCount; index++) {
             CatalogService.CreateCatalogOfStock({
                 token: token,
                 description: request.description,
                 items: request.items
             })
             .then(response => {
-                if(successCount == catalogCount)
+                if(successCount == catalogCount - 1)
                     handleShow('نجاح', 'تم إنشاء الكاتالوغ بنجاح', 'text-white bg-success', () => {})
                 else
                     successCount++;
@@ -89,7 +89,8 @@ export const CatalogImplementations = {
             .catch(error => {
                 if (error.response && error.response.data) {
                     const errorData = error.response.data;
-                    handleShow('خطأ', Object.hasOwn(errorData, 'errors') ? errorData.errors.join(' ') : 'حدث خطأ أثناء إنشاء الكاتالوغ' , 'text-white bg-danger', () => {})
+                    handleShow('خطأ', Object.hasOwn(errorData, 'errors') ?
+                                     (Array.isArray(errorData.errors) ? errorData.errors.flat(Infinity).join(' ') : errorData.errors) : 'حدث خطأ أثناء إنشاء الكاتالوغ' , 'text-white bg-danger', () => {})
                     setLoader(false);
                     return;
                 } else {
@@ -98,7 +99,7 @@ export const CatalogImplementations = {
                     return;
                 }
             }).finally(() => {
-                if(successCount == catalogCount)
+                if(successCount == catalogCount - 1)
                     setLoader(false);
             });
         }

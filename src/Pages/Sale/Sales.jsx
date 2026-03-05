@@ -289,6 +289,13 @@ const Sales = () => {
                 },
               ]}
               bodyData={dataMapper(sales)}
+              goToDetails={(e) => {
+                const row = e.target.closest('tr');
+                if (row) {
+                  const id = row.id.split('-')[1];
+                  window.open(`/sales/${sales[id].id}/details`, '_blank');
+                }
+              }}
             />
           }
           {
