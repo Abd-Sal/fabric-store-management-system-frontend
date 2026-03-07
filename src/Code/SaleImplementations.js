@@ -117,7 +117,7 @@ export const SaleImplementations = {
             if (error.response && error.response.data) {
                 const errorData = error.response.data;
                 setFailer({
-                    title: errorData.title || 'فشل في تحميل معلومات المخزون',
+                    title: errorData.title || 'فشل في تحميل معلومات الفاتورة',
                     errors: errorData.errors || { General: ['حدث خطأ غير متوقع'] }
                 });
             } else {
@@ -145,7 +145,7 @@ export const SaleImplementations = {
             if (error.response && error.response.data) {
                 const errorData = error.response.data;
                 setFailer({
-                    title: errorData.title || 'فشل في تحميل معلومات المخزون',
+                    title: errorData.title || 'فشل في تحميل معلومات الفاتورة',
                     errors: errorData.errors || { General: ['حدث خطأ غير متوقع'] }
                 });
             } else {

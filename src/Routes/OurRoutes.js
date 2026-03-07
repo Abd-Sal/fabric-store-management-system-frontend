@@ -17,10 +17,13 @@ export const OurRoutes = {
         Details: '/sales/:saleId/details'
     },
     Customers: '/customers',
+    CustomersDetails: '/customers/:customerId/details',
     Suppliers: '/suppliers',
+    SuppliersDetails: '/suppliers/:supplierId/details',
     Catalogs: {
         ShowAll: '/catalogs/show',
-        Create: '/catalogs/create'
+        Create: '/catalogs/create',
+        ShowAssingedCatalogs: '/catalogs/show-assigned-catalogs',
     },
     Payments: "/payments"
 }

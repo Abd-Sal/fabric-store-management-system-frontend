@@ -23,6 +23,8 @@ import CatalogsByCustomer from './Pages/Catalog/CatalogsByCustomer';
 import ProductDetails from './Pages/Product/ProductDetails';
 import PurchaseDetails from './Pages/Purchase/PurchaseDetails';
 import SaleDetails from './Pages/Sale/SaleDetails';
+import CustomerDetails from './Pages/Customer/CustomerDetails';
+import SupplierDetails from './Pages/Supplier/SupplierDetails';
 
 function App() {
   const {isInitialized} = useContext(GlobalContext)
@@ -40,7 +42,9 @@ function App() {
           <Route path={OurRoutes.Sales.Bill} element={isInitialized ? <SaleBill /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Payments} element={isInitialized ? <Payments /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Customers} element={isInitialized ? <Customers /> : <Navigate to={OurRoutes.Login} replace />} />
+          <Route path={OurRoutes.CustomersDetails} element={isInitialized ? <CustomerDetails /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Suppliers} element={isInitialized ? <Suppliers /> : <Navigate to={OurRoutes.Login} replace />} />
+          <Route path={OurRoutes.SuppliersDetails} element={isInitialized ? <SupplierDetails /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Catalogs.ShowAll} element={isInitialized ? <Catalogs /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Catalogs.ShowByCustomer} element={isInitialized ? <CatalogsByCustomer /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Catalogs.Create} element={isInitialized ? <CreateCatalog /> : <Navigate to={OurRoutes.Login} replace />} />

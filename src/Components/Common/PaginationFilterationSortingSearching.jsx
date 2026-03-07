@@ -72,21 +72,49 @@ const PaginationFilterationSortingSearching = ({searchBy, sortBy, defaultSearchC
 
     const handleFrom = (e) => {
         if(filterSchema.fields.from.isValidSync(e.currentTarget.value)){
-            let from = new Date(e.currentTarget.value).toISOString().split('T')[0]
-            setDateRange({
-                ...dateRange,
-                from: from
-            })
+            if(e.currentTarget.value){
+                let from = new Date(e.currentTarget.value).toISOString().split('T')[0]
+                setDateRange({
+                    ...dateRange,
+                    from: from
+                })
+            }else{
+                setDateRange({
+                    ...dateRange,
+                    from: '',
+                    to: '',
+                })
+                setFilter({
+                    ...filter,
+                    page:1,
+                    from: '',
+                    to: '',
+                })
+            }
         }
     }
 
     const handleTo = (e) => {
         if(filterSchema.fields.to.isValidSync(e.currentTarget.value)){
-            let to = new Date(e.currentTarget.value).toISOString().split('T')[0]
-            setDateRange({
-                ...dateRange,
-                to: to
-            });
+            if(e.currentTarget.value){
+                let to = new Date(e.currentTarget.value).toISOString().split('T')[0]
+                setDateRange({
+                    ...dateRange,
+                    to: to
+                });
+            }else{
+                setDateRange({
+                    ...dateRange,
+                    from: '',
+                    to: '',
+                })
+                setFilter({
+                    ...filter,
+                    page:1,
+                    from: '',
+                    to: '',
+                })
+            }
         }
     }
 
@@ -102,7 +130,6 @@ const PaginationFilterationSortingSearching = ({searchBy, sortBy, defaultSearchC
 
     useEffect(()=>{
         if(dateRange.from && dateRange.to){
-            console.log(dateRange);
             setFilter({
                 ...filter,
                 page: 1,
@@ -113,126 +140,126 @@ const PaginationFilterationSortingSearching = ({searchBy, sortBy, defaultSearchC
     }, [dateRange])
 
     return (
-    <div className="p-3 border-1 border-danger rounded">
-        <form className="d-flex flex-column gap-3">
-            {/* Search Field */}
-            <div className="form-group">
-                <label htmlFor="search">بحث</label>
-                <input
-                    type="text"
-                    name="search"
-                    id="search"
-                    className="form-control"
-                    placeholder="ابحث ..."
-                    onChange={handleSearch}
-                    value={filter.search}
-                />
-            </div>
-            
-            {/* Search By Select */}
-            <div className="form-group">
-                <label htmlFor="pageSize">بحث حسب</label>
-                <select
-                    name="searchBy"
-                    id="searchBy"
-                    className="form-select"
-                    onChange={handleSearchBy}
-                    value={filter.searchBy ? filter.searchBy : defaultSearchCol.value}
-                >
-                    {
-                        searchBy.map((option, index) => (
-                            <option key={index} value={option.value}>{option.label}</option>
-                        ))
-                    }
-                </select>
-            </div>
-
-            {/* Page Size Select */}
-            <div className="form-group">
-                <label htmlFor="pageSize">عدد العناصر في الصفحة</label>
-                <select
-                    name="pageSize"
-                    id="pageSize"
-                    className="form-select"
-                    onChange={handlePagSize}
-                    value={filter.pageSize}
-                >
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-            </div>
- 
-            {/* Sort By Select */}
-            <div className="form-group">
-                <label htmlFor="sortBy">ترتيب حسب</label>
-                <select
-                    name="sortBy"
-                    id="sortBy"
-                    className="form-select"
-                    value={filter.sortBy ? filter.sortBy : defaultSortCol.value}
-                    onChange={handleSortBy}
-                >
-                    {
-                        sortBy.map((option, index) => (
-                            <option key={index} value={option.value}>{option.label}</option>
-                        ))
-                    }
-                </select>
-            </div>
-
-            {/* Sort Direction Select */}
-            <div className="form-group">
-                <label htmlFor="sortDirection">اتجاه الترتيب</label>
-                <select
-                    name="sortDirection"
-                    id="sortDirection"
-                    className="form-select"
-                    value={filter.sortDir || 'desc'}
-                    onChange={handleSortDir}
-                >
-                    <option value="desc">تنازلي</option>
-                    <option value="asc">تصاعدي</option>
-                </select>
-            </div>
-
-            {
-                Object.hasOwn(filter, 'from') &&
-                // Date Range From
+        <div className="p-3 border-1 border-danger rounded">
+            <form className="d-flex flex-column gap-3">
+                {/* Search Field */}
                 <div className="form-group">
-                    <label>من</label>
+                    <label htmlFor="search">بحث</label>
                     <input
-                        type="date"
-                        name="fromDate"
-                        id="fromDate"
+                        type="text"
+                        name="search"
+                        id="search"
                         className="form-control"
-                        min={"2025-01-01"}
-                        onChange={handleFrom}
-                        value={filter.from || dateRange.from}
+                        placeholder="ابحث ..."
+                        onChange={handleSearch}
+                        value={filter.search}
                     />
                 </div>
-            }
-            {
-                Object.hasOwn(filter, 'to') &&
-                // Date Range To
+                
+                {/* Search By Select */}
                 <div className="form-group">
-                    <label>الى</label>
-                    <input
-                        type="date"
-                        name="toDate"
-                        id="toDate"
-                        className="form-control"
-                        min={"2025-01-01"}
-                        onChange={handleTo}
-                        value={filter.to || dateRange.to}
-                    />
+                    <label htmlFor="pageSize">بحث حسب</label>
+                    <select
+                        name="searchBy"
+                        id="searchBy"
+                        className="form-select"
+                        onChange={handleSearchBy}
+                        value={filter.searchBy ? filter.searchBy : defaultSearchCol.value}
+                    >
+                        {
+                            searchBy.map((option, index) => (
+                                <option key={index} value={option.value}>{option.label}</option>
+                            ))
+                        }
+                    </select>
                 </div>
-            }
-        </form>
-    </div>
-  )
+
+                {/* Page Size Select */}
+                <div className="form-group">
+                    <label htmlFor="pageSize">عدد العناصر في الصفحة</label>
+                    <select
+                        name="pageSize"
+                        id="pageSize"
+                        className="form-select"
+                        onChange={handlePagSize}
+                        value={filter.pageSize}
+                    >
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+    
+                {/* Sort By Select */}
+                <div className="form-group">
+                    <label htmlFor="sortBy">ترتيب حسب</label>
+                    <select
+                        name="sortBy"
+                        id="sortBy"
+                        className="form-select"
+                        value={filter.sortBy ? filter.sortBy : defaultSortCol.value}
+                        onChange={handleSortBy}
+                    >
+                        {
+                            sortBy.map((option, index) => (
+                                <option key={index} value={option.value}>{option.label}</option>
+                            ))
+                        }
+                    </select>
+                </div>
+
+                {/* Sort Direction Select */}
+                <div className="form-group">
+                    <label htmlFor="sortDirection">اتجاه الترتيب</label>
+                    <select
+                        name="sortDirection"
+                        id="sortDirection"
+                        className="form-select"
+                        value={filter.sortDir || 'desc'}
+                        onChange={handleSortDir}
+                    >
+                        <option value="desc">تنازلي</option>
+                        <option value="asc">تصاعدي</option>
+                    </select>
+                </div>
+
+                {
+                    Object.hasOwn(filter, 'from') &&
+                    // Date Range From
+                    <div className="form-group">
+                        <label>من</label>
+                        <input
+                            type="date"
+                            name="fromDate"
+                            id="fromDate"
+                            className="form-control"
+                            min={"2025-01-01"}
+                            onChange={handleFrom}
+                            value={filter.from || dateRange.from}
+                        />
+                    </div>
+                }
+                {
+                    Object.hasOwn(filter, 'to') &&
+                    // Date Range To
+                    <div className="form-group">
+                        <label>الى</label>
+                        <input
+                            type="date"
+                            name="toDate"
+                            id="toDate"
+                            className="form-control"
+                            min={"2025-01-01"}
+                            onChange={handleTo}
+                            value={filter.to || dateRange.to}
+                        />
+                    </div>
+                }
+            </form>
+        </div>
+    )
 }
 
 export default PaginationFilterationSortingSearching

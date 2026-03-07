@@ -1,12 +1,12 @@
-import { IoIosAddCircleOutline } from "react-icons/io";
 import { Formik } from 'formik';
 import { useRef, useState } from 'react';
 import * as Yup from 'yup';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Alert from 'react-bootstrap/Alert';
+import { EmptyObjectChecker } from '../../HelperTools/EmptyObjectChecker';
 
-const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCustomer, SpecialStyling=''}) => {
+const UpdateCustomerModal = ({token, oldCustomer, implementationsUpdateCustomer, setNeedRefresh, SpecialStyling=''}) => {
   const phoneRegex = /^\+?[0-9]+$/;
   const customerSchema = Yup.object().shape({
       firstName: Yup.string()
@@ -45,11 +45,11 @@ const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCust
   const subRef = useRef(null);
   const [show, setShow] = useState(false);
   const [customerRequest, setCustomerRequest] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    address: ''
+    firstName: oldCustomer.firstName,
+    lastName: oldCustomer.lastName,
+    email: oldCustomer.email,
+    phone: oldCustomer.phone,
+    address: oldCustomer.address
   });
   const handleClose = () => {
     setShow(false);
@@ -58,7 +58,6 @@ const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCust
   };
   const handleShow = () => { 
     setShow(true);
-    setCustomerRequest({fistName: '', lastName: '', email: '', phone: '', address: ''});
     setFailer({})
   };
   const [failer, setFailer] = useState({});
@@ -68,26 +67,37 @@ const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCust
     subRef.current?.click();
   }
 
-  const createFunc = () => {      
-    implementationsCreateCustomer({
-      token: token,
-      customer: customerRequest,
-      setLoader: setLoader,
-      setFailer: setFailer,
-      onSuccess: () => {
-        setAddedCustomer(true);
-        handleClose();
-      }
-    })
+  const checkIfEdited = () => {    
+    return oldCustomer.firstName !== customerRequest.firstName ||
+        oldCustomer.lastName !== customerRequest.lastName ||
+        oldCustomer.address !== customerRequest.address ||
+        oldCustomer.email !== customerRequest.email ||
+        oldCustomer.phone !== customerRequest.phone;
+  }
+
+  const updateFunc = () => {
+    if(checkIfEdited()){
+        implementationsUpdateCustomer({
+          token: token,
+          id: oldCustomer.id,
+          newCustomer: customerRequest,
+          setLoader: setLoader,
+          setFailer: setFailer,
+          onSuccess: () => {
+            setNeedRefresh(true)
+            handleClose();
+          }
+        })
+    }
   }
 
   return (
-    <div className="d-flex justify-content-end mb-2">
+    <div className="d-flex justify-content-end">
       <Button
-        title="اضافة زبون جديد"
+        title="تعديل الزبون"
         onClick={handleShow}
-        className={`btn btn-success d-flex justify-content-center align-items-center ps-5 pe-5 ${SpecialStyling}`}
-      ><IoIosAddCircleOutline fontSize={25}/></Button>
+        className={`btn btn-primary px-5 py-3 border border-3 border-white rounded-4 fw-bold d-flex justify-content-center align-items-center ${SpecialStyling}`}
+      >تعديل بيانات العميل</Button>
       <Modal
         centered
         show={show}
@@ -95,10 +105,11 @@ const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCust
         size="lg"
       >
         <Modal.Header>
-          <Modal.Title>اضافة زبون</Modal.Title>
+          <Modal.Title>تعديل زبون</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {
+            !EmptyObjectChecker(failer) &&
             Object.keys(failer).length > 0 &&
             <div className="w-100">
               <Alert variant="danger">
@@ -117,7 +128,7 @@ const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCust
             </div>
           }
           <Formik
-            initialValues={{ fistName: '', lastName: '', email: '', phone: '', address: '' }}
+            initialValues={{ firstName: customerRequest.firstName, lastName: customerRequest.lastName, email: customerRequest.email != null ? customerRequest.email : '' , phone: customerRequest.phone != null ? customerRequest.phone : '', address: customerRequest.address }}
             validationSchema={customerSchema}
             onSubmit={(values, { setSubmitting }) => {
               setCustomerRequest({
@@ -127,7 +138,7 @@ const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCust
                 phone: values.phone,
                 address: values.address,
               });
-              createFunc();
+              updateFunc();
               setTimeout(() => {
                 setSubmitting(false);
               }, 400);
@@ -249,8 +260,8 @@ const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCust
           <Button variant="danger" onClick={handleClose}>
             الغاء
           </Button>
-          <Button variant="success" disabled={loader} onClick={triggerSubmit}>
-            اضافة
+          <Button variant="success" disabled={loader || !checkIfEdited()} onClick={triggerSubmit}>
+            حفظ التعديلات
           </Button>
         </Modal.Footer>
       </Modal>
@@ -258,4 +269,4 @@ const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCust
   )
 }
 
-export default CreateCustomerModal
+export default UpdateCustomerModal

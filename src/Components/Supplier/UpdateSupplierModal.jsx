@@ -1,23 +1,18 @@
-import { IoIosAddCircleOutline } from "react-icons/io";
 import { Formik } from 'formik';
 import { useRef, useState } from 'react';
 import * as Yup from 'yup';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Alert from 'react-bootstrap/Alert';
+import { EmptyObjectChecker } from '../../HelperTools/EmptyObjectChecker';
 
-const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCustomer, SpecialStyling=''}) => {
+const UpdateSupplierModal = ({token, oldSupplier, implementationsUpdateSupplier, setNeedRefresh, SpecialStyling=''}) => {
   const phoneRegex = /^\+?[0-9]+$/;
-  const customerSchema = Yup.object().shape({
-      firstName: Yup.string()
-          .min(3, 'اسم الزبون بجب ان يكون على الأقل 3 أحرف')
-          .max(250, 'اسم الزبون يجب أن يكون على الأكثر 250 حرف')
-          .required('اسم الزبون مطلوب'),
-
-      lastName: Yup.string()
-          .min(3, 'اسم عائلة الزبون بجب ان يكون على الأقل 3 أحرف')
-          .max(250, 'اسم عائلة الزبون يجب أن يكون على الأكثر 250 حرف')
-          .required('اسم الزبون مطلوب'),
+  const supplierSchema = Yup.object().shape({
+      name: Yup.string()
+          .min(3, 'اسم المورد بجب ان يكون على الأقل 3 أحرف')
+          .max(250, 'اسم المورد يجب أن يكون على الأكثر 250 حرف')
+          .required('اسم المورد مطلوب'),
       
       email: Yup.string()
           .nullable()
@@ -44,21 +39,19 @@ const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCust
   });
   const subRef = useRef(null);
   const [show, setShow] = useState(false);
-  const [customerRequest, setCustomerRequest] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    address: ''
+  const [supplierRequest, setSupplierRequest] = useState({
+    name: oldSupplier.name,
+    email: oldSupplier.email,
+    phone: oldSupplier.phone,
+    address: oldSupplier.address
   });
   const handleClose = () => {
     setShow(false);
-    setCustomerRequest({fistName: '', lastName: '', email: '', phone: '', address: ''});
+    setSupplierRequest({name: '', email: '', phone: '', address: ''});
     setFailer({})
   };
   const handleShow = () => { 
     setShow(true);
-    setCustomerRequest({fistName: '', lastName: '', email: '', phone: '', address: ''});
     setFailer({})
   };
   const [failer, setFailer] = useState({});
@@ -68,26 +61,36 @@ const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCust
     subRef.current?.click();
   }
 
-  const createFunc = () => {      
-    implementationsCreateCustomer({
-      token: token,
-      customer: customerRequest,
-      setLoader: setLoader,
-      setFailer: setFailer,
-      onSuccess: () => {
-        setAddedCustomer(true);
-        handleClose();
-      }
-    })
+  const checkIfEdited = () => {    
+    return oldSupplier.name !== supplierRequest.name ||
+        oldSupplier.address !== supplierRequest.address ||
+        oldSupplier.email !== supplierRequest.email ||
+        oldSupplier.phone !== supplierRequest.phone;
+  }
+
+  const updateFunc = () => {
+    if(checkIfEdited()){
+        implementationsUpdateSupplier({
+          token: token,
+          id: oldSupplier.id,
+          newSupplier: supplierRequest,
+          setLoader: setLoader,
+          setFailer: setFailer,
+          onSuccess: () => {
+            setNeedRefresh(true)
+            handleClose();
+          }
+        })
+    }
   }
 
   return (
-    <div className="d-flex justify-content-end mb-2">
+    <div className="d-flex justify-content-end">
       <Button
-        title="اضافة زبون جديد"
+        title="تعديل المورد"
         onClick={handleShow}
-        className={`btn btn-success d-flex justify-content-center align-items-center ps-5 pe-5 ${SpecialStyling}`}
-      ><IoIosAddCircleOutline fontSize={25}/></Button>
+        className={`btn btn-primary px-5 py-3 border border-3 border-white rounded-4 fw-bold d-flex justify-content-center align-items-center ${SpecialStyling}`}
+      >تعديل بيانات المورد</Button>
       <Modal
         centered
         show={show}
@@ -95,10 +98,11 @@ const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCust
         size="lg"
       >
         <Modal.Header>
-          <Modal.Title>اضافة زبون</Modal.Title>
+          <Modal.Title>تعديل المورد</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {
+            !EmptyObjectChecker(failer) &&
             Object.keys(failer).length > 0 &&
             <div className="w-100">
               <Alert variant="danger">
@@ -117,17 +121,16 @@ const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCust
             </div>
           }
           <Formik
-            initialValues={{ fistName: '', lastName: '', email: '', phone: '', address: '' }}
-            validationSchema={customerSchema}
+            initialValues={{ name: supplierRequest.name, email: supplierRequest.email != null ? supplierRequest.email : '' , phone: supplierRequest.phone != null ? supplierRequest.phone : '', address: supplierRequest.address }}
+            validationSchema={supplierSchema}
             onSubmit={(values, { setSubmitting }) => {
-              setCustomerRequest({
-                firstName: values.firstName,
-                lastName: values.lastName,
+              setSupplierRequest({
+                name: values.name,
                 email: values.email,
                 phone: values.phone,
                 address: values.address,
               });
-              createFunc();
+              updateFunc();
               setTimeout(() => {
                 setSubmitting(false);
               }, 400);
@@ -145,7 +148,7 @@ const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCust
             const handleFormChange = (e) => {
               handleChange(e);
               const { name, value } = e.target;
-              setCustomerRequest(prev => ({
+              setSupplierRequest(prev => ({
                   ...prev,
                   [name]: value
               }));
@@ -156,37 +159,22 @@ const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCust
                 onSubmit={handleSubmit}
                 className='form d-flex flex-column gap-3'
               >
-                {/* Customer FirstName */}
+                {/* Supplier Name */}
                 <div className='form-group'>
                   <input
                       className='form-control'
                       type="text"
-                      name="firstName"
+                      name="name"
                       onChange={handleFormChange}
                       onBlur={handleBlur}
-                      value={values.firstName}
-                      placeholder='اسم الزبون'
+                      value={values.name}
+                      placeholder='اسم المورد'
                       maxLength={250}
                   />
-                  {errors.firstName && touched.firstName && <p className='text-danger mb-0 pb-0'>{errors.firstName}</p>}
+                  {errors.name && touched.name && <p className='text-danger mb-0 pb-0'>{errors.name}</p>}
                 </div>
 
-                {/* Customer LastName */}
-                <div className='form-group'>
-                  <input
-                      className='form-control'
-                      type="text"
-                      name="lastName"
-                      onChange={handleFormChange}
-                      onBlur={handleBlur}
-                      value={values.lastName}
-                      placeholder='اسم عائلة الزبون'
-                      maxLength={250}
-                  />
-                  {errors.lastName && touched.lastName && <p className='text-danger mb-0 pb-0'>{errors.lastName}</p>}
-                </div>
-
-                {/* Customer Email */}
+                {/* Supplier Email */}
                 <div className='form-group'>
                   <input
                       className='form-control'
@@ -201,7 +189,7 @@ const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCust
                   {errors.email && touched.email && <p className='text-danger mb-0 pb-0'>{errors.email}</p>}
                 </div>
 
-                {/* Customer Phone */}
+                {/* Supplier Phone */}
                 <div className='form-group'>
                   <input
                       className='form-control'
@@ -216,7 +204,7 @@ const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCust
                   {errors.phone && touched.phone && <p className='text-danger mb-0 pb-0'>{errors.phone}</p>}
                 </div>
 
-                {/* Customer Address */}
+                {/* Supplier Address */}
                 <div className='form-group'>
                   <input
                       className='form-control'
@@ -249,8 +237,8 @@ const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCust
           <Button variant="danger" onClick={handleClose}>
             الغاء
           </Button>
-          <Button variant="success" disabled={loader} onClick={triggerSubmit}>
-            اضافة
+          <Button variant="success" disabled={loader || !checkIfEdited()} onClick={triggerSubmit}>
+            حفظ التعديلات
           </Button>
         </Modal.Footer>
       </Modal>
@@ -258,4 +246,4 @@ const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCust
   )
 }
 
-export default CreateCustomerModal
+export default UpdateSupplierModal

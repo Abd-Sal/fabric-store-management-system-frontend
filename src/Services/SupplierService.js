@@ -65,7 +65,24 @@ export const SupplierService = {
     },
     ActivateSupplier: ({token, id}) => {
         let url = `${APIConfig.BASE_URL}${APIConfig.Supplier.Activate(id)}`;
-        const response = axios.put(url, {
+        const response = axios.put(url, 
+            null,    
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        );
+        return response;
+    },
+    SupplierPurchases: ({token, id, page, pageSize, Search, From, To}) => {
+        let url = `${APIConfig.BASE_URL}${APIConfig.Supplier.GetSupplierPurchases(id)}?`;
+        if(page && !isNaN(page)) url += `page=${page}&`;
+        if(pageSize && !isNaN(pageSize)) url += `pageSize=${pageSize}&`;
+        if(Search) url += `invoiceNumber=${Search}&`;
+        if(From && From !== "0001-01-01" && To) url += `from=${From}&`;
+        if(To && To !== "0001-01-01" && From) url += `to=${To}&`;
+        const response = axios.get(url,{
             headers: {
                 'Authorization': `Bearer ${token}`
             }

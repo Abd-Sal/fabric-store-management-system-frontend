@@ -55,6 +55,7 @@ function ColorSchemesExample() {
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
                         <Dropdown.Item as={NavLink} to={OurRoutes.Catalogs.ShowAll}>تصفح الكاتالوغات <VscPreview fontSize={20}/></Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to={OurRoutes.Catalogs.ShowAssingedCatalogs}>تصفح الكاتالوغات المعارة <VscPreview fontSize={20}/></Dropdown.Item>
                         <Dropdown.Item as={NavLink} to={OurRoutes.Catalogs.Create}>كاتالوغ جديد <IoIosAddCircleOutline fontSize={25}/></Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>

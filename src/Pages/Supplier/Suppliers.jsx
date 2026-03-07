@@ -304,6 +304,13 @@ const Suppliers = () => {
                 },
               ]}
               bodyData={suppliers}
+              goToDetails={(e) => {
+                const row = e.target.closest('tr')
+                if(row){
+                  const id = row.id.split('-')[1];
+                  window.open(`/suppliers/${suppliers[id].id}/details`, '_blank')
+                }
+              }}
             />
           }
           {

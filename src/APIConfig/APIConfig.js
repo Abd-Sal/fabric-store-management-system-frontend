@@ -12,6 +12,7 @@ export const APIConfig = {
         Delete: (id) => `/customers/${id}`,
         Activate: (id) => `/customers/${id}/activating`,
         GetCustomerSales: (id) => `/customers/${id}/sales`,
+        GetCustomerCatalogs: (id) => `/customers/${id}/catalogs`,
         CustomerSearchForBill: (search) => `/customers/search?name=${search}`,
         EndpointDetails: "/customers"
     },
@@ -61,6 +62,7 @@ export const APIConfig = {
     },
     Catalog:{
         Get: "/catalogs",
+        GetAssignedCatalogs: "/catalogs/assigned-catalogs",
         GetByID: (id) => `/catalogs/${id}`,
         Create: "/catalogs",
         Delete: (id) => `/catalogs/${id}`,

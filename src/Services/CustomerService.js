@@ -9,7 +9,7 @@ export const CustomerService = {
         if(SortColumn) url += `sortColumn=${SortColumn}&`;
         if(SortDir) url += `sortDir=${SortDir}&`;
         if(Search) url += `search=${Search}&`;
-        if(SearchColumn && Search) url += `searchColumn=${SearchColumn}&`;       
+        if(SearchColumn && Search) url += `searchColumn=${SearchColumn}&`;
         const response = axios.get(url,{
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -67,7 +67,39 @@ export const CustomerService = {
     },
     ActivateCustomer: ({token, id}) => {
         let url = `${APIConfig.BASE_URL}${APIConfig.Customer.Activate(id)}`;
-        const response = axios.put(url, {
+        const response = axios.put(url,
+            null,
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
+        return response;
+    },
+    CustomerSales: ({token, id, page, pageSize, Search, From, To}) => {
+        let url = `${APIConfig.BASE_URL}${APIConfig.Customer.GetCustomerSales(id)}?`;
+        if(page && !isNaN(page)) url += `page=${page}&`;
+        if(pageSize && !isNaN(pageSize)) url += `pageSize=${pageSize}&`;
+        if(Search) url += `invoiceNumber=${Search}&`;
+        if(From && From !== "0001-01-01" && To) url += `from=${From}&`;
+        if(To && To !== "0001-01-01" && From) url += `to=${To}&`;
+        const response = axios.get(url,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response;
+    },
+    CustomerCatalogs: ({token, id, page, pageSize, Search, From, To, includeReturned = false}) => {
+        let url = `${APIConfig.BASE_URL}${APIConfig.Customer.GetCustomerCatalogs(id)}?`;
+        if(page && !isNaN(page)) url += `page=${page}&`;
+        if(pageSize && !isNaN(pageSize)) url += `pageSize=${pageSize}&`;
+        if(Search) url += `code=${Search}&`;
+        if(From && From !== "0001-01-01" && To) url += `from=${From}&`;
+        if(To && To !== "0001-01-01" && From) url += `to=${To}&`;
+        url += `includeReturned=${includeReturned}`
+        const response = axios.get(url,{
             headers: {
                 'Authorization': `Bearer ${token}`
             }

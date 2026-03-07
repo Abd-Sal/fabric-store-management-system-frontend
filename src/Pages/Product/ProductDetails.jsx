@@ -105,12 +105,13 @@ const ProductDetails = () => {
     }, [productId])
 
     useEffect(() => {
-        if(EmptyObjectChecker(productDetails))
+        if(!EmptyObjectChecker(productDetails))
             getProductTransactions();
     }, [productDetails])
 
     useEffect(() => {
-        getProductTransactions()
+        if(!EmptyObjectChecker(productDetails))
+            getProductTransactions()
     }, [filter])
 
     return (
@@ -170,32 +171,35 @@ const ProductDetails = () => {
 
                         <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
                             <strong>معرف المادة : </strong>
-                            <strong>{productDetails.product.id || 'غير متوفر'}</strong>
+                            <strong>{productDetails.product.id}</strong>
                         </div>
                         <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
                             <strong>الكود كامل : </strong>
-                            <strong>{productDetails.product.productCode || 'غير متوفر'}</strong>
+                            <strong>{productDetails.product.productCode}</strong>
                         </div>
                         <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
                             <strong>الكود : </strong>
-                            <strong>{productDetails.product.code || 'غير متوفر'}</strong>
+                            <strong>{productDetails.product.code}</strong>
                         </div>
                         <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
                             <strong>اللون : </strong>
-                            <strong>{productDetails.product.color || 'غير متوفر'}</strong>
+                            <strong>{productDetails.product.color}</strong>
                         </div>
                         <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
                             <strong>وحدة التخزين : </strong>
-                            <strong>{productDetails.product.unit || 'غير متوفر'}</strong>
+                            <strong>{productDetails.product.unit}</strong>
                         </div>
                         <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
                             <strong>تاريخ الانشاء : </strong>
                             <strong>{new Date(productDetails.product.createdAt + 'Z').toLocaleString() || 'غير متوفر'}</strong>
                         </div>
-                        <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
-                            <strong>تاريخ اخر تعديل : </strong>
-                            <strong>{new Date(productDetails.lastUpdateAt + 'Z').toLocaleString() || 'غير متوفر'}</strong>
-                        </div>
+                        {
+                            productDetails.lastUpdateAt &&
+                            <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                                <strong>تاريخ اخر تعديل : </strong>
+                                <strong>{new Date(productDetails.lastUpdateAt + 'Z').toLocaleString() || 'غير متوفر'}</strong>
+                            </div>
+                        }
                     </div>
                 }
                 </Col>

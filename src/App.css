@@ -1,10 +1,10 @@
 .cursor-pointer {
   cursor: pointer;
 }
-.product-details-hover{
+.product-details-hover, .customer-details-hover, .supplier-details-hover{
   transition: all 300ms;
 }
-.product-details-hover:hover{
+.product-details-hover:hover, .customer-details-hover:hover, .supplier-details-hover:hover{
   background-color: #fff;
   color: rgba(0, 0, 0, 0.973);
   font-weight: 700;
