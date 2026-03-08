@@ -25,6 +25,7 @@ import PurchaseDetails from './Pages/Purchase/PurchaseDetails';
 import SaleDetails from './Pages/Sale/SaleDetails';
 import CustomerDetails from './Pages/Customer/CustomerDetails';
 import SupplierDetails from './Pages/Supplier/SupplierDetails';
+import CatalogDetails from './Pages/Catalog/CatalogDetails';
 
 function App() {
   const {isInitialized} = useContext(GlobalContext)
@@ -46,6 +47,7 @@ function App() {
           <Route path={OurRoutes.Suppliers} element={isInitialized ? <Suppliers /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.SuppliersDetails} element={isInitialized ? <SupplierDetails /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Catalogs.ShowAll} element={isInitialized ? <Catalogs /> : <Navigate to={OurRoutes.Login} replace />} />
+          <Route path={OurRoutes.Catalogs.Details} element={isInitialized ? <CatalogDetails /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Catalogs.ShowByCustomer} element={isInitialized ? <CatalogsByCustomer /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Catalogs.Create} element={isInitialized ? <CreateCatalog /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Products} element={isInitialized ? <Product /> : <Navigate to={OurRoutes.Login} replace />} />

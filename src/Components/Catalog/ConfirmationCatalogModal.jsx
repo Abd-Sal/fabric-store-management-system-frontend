@@ -4,10 +4,9 @@ import Alert from 'react-bootstrap/Alert';
 import { useState } from "react";
 import { EmptyObjectChecker } from "../../HelperTools/EmptyObjectChecker";
 
-const PayRestAmount = ({title, token, id, oldPaid, totalAmount, requestSender, setNeedRefresh}) => {
+const ConfirmationCatalogModal = ({title, btnTitle, btnStyle, bodyTitle, token, id, requestSender, setNeedRefresh, specialBehavior}) => {
     const [show, setShow] = useState(false);
     const handleClose = () => {
-        setPaidAmount(0)
         setShow(false);
     };
     const handleShow = () => { 
@@ -16,31 +15,18 @@ const PayRestAmount = ({title, token, id, oldPaid, totalAmount, requestSender, s
 
     const [failer, setFailer] = useState({});
     const [loader, setLoader] = useState(false);
-    const [paidAmount, setPaidAmount] = useState(0)
-    const handlePaidAmount = (e) => {
-        let inpValue = e.currentTarget.value;
-        if(inpValue === '') {
-            setPaidAmount('0')
-            return;
-        }
-        if(/^\d*\.?\d{0,2}$/.test(inpValue)) {
-            let restAmount = parseFloat(totalAmount) - parseFloat(oldPaid);
-            let paid = parseFloat(inpValue);
-            if(paid <= restAmount)
-                setPaidAmount(inpValue);
-        }
-    }
 
     const success = () => {
         setNeedRefresh(true)
         handleClose();
+        if(specialBehavior)
+          specialBehavior()
     }
 
     const sendRequest = () => {
         requestSender({
             token: token,
             id: id,
-            paidAmount: paidAmount,
             setLoader: setLoader,
             setFailer: setFailer,
             onSuccess: success
@@ -50,10 +36,10 @@ const PayRestAmount = ({title, token, id, oldPaid, totalAmount, requestSender, s
     return (
       <div className="d-flex justify-content-end">
         <Button
-            variant="primary"
+            variant={`${btnStyle}`}
             className="fw-bold px-5 py-3 border border-3 border-white rounded-4"
             onClick={handleShow}
-        >دفع باقي المستحقات</Button>
+        >{btnTitle}</Button>
         <Modal
           centered
           show={show}
@@ -83,27 +69,14 @@ const PayRestAmount = ({title, token, id, oldPaid, totalAmount, requestSender, s
                     </Alert>
                 </div>
             }
-            {
-                !loader && EmptyObjectChecker(failer) &&
-                <div className="group-form">
-                    <label htmlFor="amount">القيمة المراد دفعها <span className="text-danger">(اقصى مبلغ يمكن دفعه:  ${((parseFloat(totalAmount) - parseFloat(oldPaid)).toFixed(2))})</span></label>
-                    <input
-                        id="amount"
-                        name="amount"
-                        type="text"
-                        className="form-control"
-                        value={paidAmount}
-                        onInput={handlePaidAmount}
-                    />
-                </div>
-            }
+            {bodyTitle}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="danger" disabled={loader} onClick={handleClose}>
               الغاء
             </Button>
             <Button variant="success" disabled={loader} onClick={sendRequest}>
-              دفع
+              تأكيد
             </Button>
           </Modal.Footer>
         </Modal>
@@ -111,4 +84,4 @@ const PayRestAmount = ({title, token, id, oldPaid, totalAmount, requestSender, s
     )
 }
 
-export default PayRestAmount
+export default ConfirmationCatalogModal

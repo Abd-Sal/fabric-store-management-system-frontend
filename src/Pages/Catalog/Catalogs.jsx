@@ -50,6 +50,8 @@ const Catalogs = () => {
         {catalog.status === 'Available' ? 'متوفر' : catalog.status === 'Assigned' ? 'محجوز' : 'متلف'}
       </div>,
       isPurchased: catalog.isPurchased ? 'نعم' : 'لا',
+      supplierID: Object.hasOwn(catalog, 'supplierID') ? catalog.supplierID : '---',
+      supplierName: Object.hasOwn(catalog, 'supplierID') ? catalog.supplierName : '---',  
       price: Object.hasOwn(catalog, 'price') && catalog.price >= 0 ? catalog.price : '---',
       PaidAmount: Object.hasOwn(catalog, 'PaidAmount') && catalog.PaidAmount >= 0 ? catalog.PaidAmount : '---',
       isPaid: Object.hasOwn(catalog, 'isPaid') ? catalog.isPaid ? 
@@ -280,6 +282,14 @@ const Catalogs = () => {
                     value: "isPurchased"
                   },
                   {
+                    label: "معرف المورد",
+                    value: "supplierID"
+                  },
+                  {
+                    label: "اسم المورد",
+                    value: "supplierName"
+                  },
+                  {
                     label: "السعر",
                     value: "price"
                   },
@@ -305,6 +315,13 @@ const Catalogs = () => {
                   }
                 ]}
                 bodyData={catalogMapper()}
+                goToDetails={(e) => {
+                  const row = e.target.closest('tr')
+                  if (row) {
+                    const id = row.id.split('-')[1];
+                    window.open(`/catalogs/${catalogs[id].id}/details`, '_blank');
+                  }
+                }}
               />
             }
             {

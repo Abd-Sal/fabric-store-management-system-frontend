@@ -22,8 +22,10 @@ export const OurRoutes = {
     SuppliersDetails: '/suppliers/:supplierId/details',
     Catalogs: {
         ShowAll: '/catalogs/show',
+        Details: '/catalogs/:catalogId/details',
         Create: '/catalogs/create',
         ShowAssingedCatalogs: '/catalogs/show-assigned-catalogs',
+        AssignCatalogs: '/catalogs/assigning-catalogs',
     },
     Payments: "/payments"
 }

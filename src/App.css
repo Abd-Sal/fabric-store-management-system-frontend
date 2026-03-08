@@ -6,7 +6,7 @@
 }
 .product-details-hover:hover, .customer-details-hover:hover, .supplier-details-hover:hover{
   background-color: #fff;
-  color: rgba(0, 0, 0, 0.973);
+  color: rgba(0, 0, 0, 0.973) !important;
   font-weight: 700;
   font-size: 20px;
   padding: 8px;

@@ -159,8 +159,8 @@ export const CatalogImplementations = {
                 supplierID: request.supplierID,
                 description: request.description,
                 items: request.items,
-                amount: request.price,
-                paidAmount: paidForThisItem
+                amount: parseFloat(request.price).toFixed(2),
+                paidAmount: parseFloat(paidForThisItem).toFixed(2)
             })
             .then(response => {
                 if(successCount == catalogCount - 1)
@@ -171,6 +171,16 @@ export const CatalogImplementations = {
             .catch(error => {
                 if (error.response && error.response.data) {
                     const errorData = error.response.data;
+                    let errorMessage = 'حدث خطأ أثناء إنشاء الكاتالوغ';                    
+                    if (Object.hasOwn(errorData, 'errors')) {
+                        if (Array.isArray(errorData.errors)) {
+                            errorMessage = errorData.errors.flat(Infinity).join(' ');
+                        } else if (typeof errorData.errors === 'object' && errorData.errors !== null) {
+                            errorMessage = Object.values(errorData.errors).flat().join(' ');
+                        } else {
+                            errorMessage = String(errorData.errors);
+                        }
+                    }
                     handleShow('خطأ', Object.hasOwn(errorData, 'errors') ?
                                      (Array.isArray(errorData.errors) ? errorData.errors.flat(Infinity).join(' ') : errorData.errors) : 'حدث خطأ أثناء إنشاء الكاتالوغ' , 'text-white bg-danger', () => {})
                     setLoader(false);
@@ -185,5 +195,200 @@ export const CatalogImplementations = {
                     setLoader(false);
             });
         }
+    },
+    CatalogDetails: ({token, id, setCatalogDetails, setLoader, setFailer}) => {
+        setLoader(true)
+        setFailer(null)
+        CatalogService.CatalogByID({
+            token: token,
+            id: id
+        })
+        .then(response => {
+            const data = response.data;
+            setCatalogDetails(data);
+        })
+        .catch(error => {
+            if (error.response && error.response.data) {
+                const errorData = error.response.data;
+                setFailer({
+                    title: errorData.title || 'فشل في تحميل معلومات الكاتالوغ',
+                    errors: errorData.errors || { General: ['حدث خطأ غير متوقع'] }
+                });
+            } else {
+                setFailer({
+                    title: 'فشل الاتصال بالخادم',
+                    errors: { General: [error.message || 'يرجى المحاولة مرة أخرى'] }
+                });
+            }
+        }).finally(() => {
+            setLoader(false);
+        });
+    },
+    PayCatalog: ({token, id, paidAmount, setLoader, setFailer, onSuccess}) => {
+        setLoader(true)
+        setFailer(null)
+        CatalogService.PayPurchaseCatalog({
+            id: id,
+            token: token,
+            paidAmount: paidAmount
+        })
+        .then(response => {
+            onSuccess()
+        })
+        .catch(error => {
+            if (error.response && error.response.data) {
+                const errorData = error.response.data;
+                setFailer({
+                    title: errorData.title || 'فشل في تحميل معلومات الفاتورة',
+                    errors: errorData.errors || { General: ['حدث خطأ غير متوقع'] }
+                });
+            } else {
+                setFailer({
+                    title: 'فشل الاتصال بالخادم',
+                    errors: { General: [error.message || 'يرجى المحاولة مرة أخرى'] }
+                });
+            }
+        }).finally(() => {
+            setLoader(false);
+        });        
+    },
+    AssignCatalog: ({token, catalogID, customerID, setLoader, setFailer, onSuccess}) => {
+        setLoader(true)
+        setFailer(null)
+        CatalogService.AssingCatalog({
+            catalogID: catalogID,
+            customerID: customerID,
+            token: token,
+        })
+        .then(response => {
+            onSuccess()
+        })
+        .catch(error => {
+            if (error.response && error.response.data) {
+                const errorData = error.response.data;
+                setFailer({
+                    title: errorData.title || 'فشل في عملية الاعارة',
+                    errors: errorData.errors || { General: ['حدث خطأ غير متوقع'] }
+                });
+            } else {
+                setFailer({
+                    title: 'فشل الاتصال بالخادم',
+                    errors: { General: [error.message || 'يرجى المحاولة مرة أخرى'] }
+                });
+            }
+        }).finally(() => {
+            setLoader(false);
+        });        
+    },
+    ReturnCatalog: ({token, id, setLoader, setFailer, onSuccess}) => {
+        setLoader(true)
+        setFailer(null)
+        CatalogService.ReturnCatalog({
+            token: token,
+            id: id
+        })
+        .then(response => {
+            onSuccess()
+        })
+        .catch(error => {
+            if (error.response && error.response.data) {
+                const errorData = error.response.data;
+                setFailer({
+                    title: errorData.title || 'فشل في عملية الاستعادة',
+                    errors: errorData.errors || { General: ['حدث خطأ غير متوقع'] }
+                });
+            } else {
+                setFailer({
+                    title: 'فشل الاتصال بالخادم',
+                    errors: { General: [error.message || 'يرجى المحاولة مرة أخرى'] }
+                });
+            }
+        }).finally(() => {
+            setLoader(false);
+        });        
+    },
+    DestroyCatalog: ({token, id, setLoader, setFailer, onSuccess}) => {
+        setLoader(true)
+        setFailer(null)
+        CatalogService.DestroyCatalog({
+            token: token,
+            id: id
+        })
+        .then(response => {
+            onSuccess()
+        })
+        .catch(error => {
+            if (error.response && error.response.data) {
+                const errorData = error.response.data;
+                setFailer({
+                    title: errorData.title || 'فشل في عملية الاتلاف',
+                    errors: errorData.errors || { General: ['حدث خطأ غير متوقع'] }
+                });
+            } else {
+                setFailer({
+                    title: 'فشل الاتصال بالخادم',
+                    errors: { General: [error.message || 'يرجى المحاولة مرة أخرى'] }
+                });
+            }
+        }).finally(() => {
+            setLoader(false);
+        });        
+    },
+    RemoveCatalog: ({token, id, setLoader, setFailer, onSuccess}) => {
+        setLoader(true)
+        setFailer(null)
+        CatalogService.DeleteCatalog({
+            token: token,
+            id: id
+        })
+        .then(response => {
+            onSuccess()
+        })
+        .catch(error => {
+            if (error.response && error.response.data) {
+                const errorData = error.response.data;
+                setFailer({
+                    title: errorData.title || 'فشل في عملية الحذف',
+                    errors: errorData.errors || { General: ['حدث خطأ غير متوقع'] }
+                });
+            } else {
+                setFailer({
+                    title: 'فشل الاتصال بالخادم',
+                    errors: { General: [error.message || 'يرجى المحاولة مرة أخرى'] }
+                });
+            }
+        }).finally(() => {
+            setLoader(false);
+        });        
+    },
+    AssignedCatalogsDetails: ({token, setAssignedCatalogs, setLoader, setFailer, catalogID}) => {
+        setLoader(true)
+        setFailer(null)
+        CatalogService.AllAssignedCatalogs({
+            token: token,
+            Search: catalogID,
+            SearchColumn: 'catalogid'
+        })
+        .then(response => {
+            const data = response.data;
+            if(Array.isArray(data.items) && data.items.length > 0)
+                setAssignedCatalogs(data.items[0]);
+        })
+        .catch(error => {
+            if (error.response && error.response.data) {
+                const errorData = error.response.data;
+                setFailer({
+                    title: errorData.title || 'فشل في تحميل معلومات الكاتالوغ',
+                    errors: errorData.errors || { General: ['حدث خطأ غير متوقع'] }
+                });
+            } else {
+                setFailer({
+                    title: 'فشل الاتصال بالخادم',
+                    errors: { General: [error.message || 'يرجى المحاولة مرة أخرى'] }
+                });
+            }
+        }).finally(() => {
+            setLoader(false);
+        });
     }
 }

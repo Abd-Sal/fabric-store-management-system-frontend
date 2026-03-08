@@ -109,6 +109,7 @@ const SaleDetails = () => {
                                     token={authInfo.Token}
                                     requestSender={saleImplemetations.PaySale}
                                     setNeedRefresh={setNeedRefresh}
+                                    title={'دفع باقي المبلغ'}
                                 />
                                 : ''
                             }

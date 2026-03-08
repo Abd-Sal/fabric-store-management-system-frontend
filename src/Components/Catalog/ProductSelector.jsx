@@ -15,12 +15,9 @@ const ProductSelector = ({products=[], selectedProducts=[], setSelectedProducts,
         ...cut,
         items: cut.items.filter(item => item !== id)
       })
-      // setSelectedProducts(selectedProducts.filter(oldId => oldId !== id))
       e.currentTarget.classList.remove('bg-success');
       e.currentTarget.classList.remove('text-white');
     } else {
-      // let newSelectedProducts = [...selectedProducts, id] 
-      // setSelectedProducts(newSelectedProducts)
       setCut({
         ...cut,
         items: [...cut.items, id]

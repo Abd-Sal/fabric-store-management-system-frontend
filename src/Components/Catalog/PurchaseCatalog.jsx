@@ -146,7 +146,7 @@ const PurchaseCatalog = () => {
             }));
             return;
         }
-        if(/^\d*\.?\d{0,3}$/.test(inpValue)) {
+        if(/^\d*\.?\d{0,2}$/.test(inpValue)) {
             let amount = parseFloat(cut.total);
             let paid = parseFloat(inpValue);
             if(paid <= amount){
