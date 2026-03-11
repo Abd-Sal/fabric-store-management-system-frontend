@@ -157,7 +157,6 @@ const ProductDetails = () => {
                         <div>
                             <h2>تفاصيل المادة</h2>
                         </div>
-
                         <div className="py-2 d-flex justify-content-start align-items-center gap-3 w-100">
                             <div className="p-2 bg-success w-25 d-flex justify-content-center align-items-center gap-2 rounded-5 border border-3 border-white">
                                 <strong>الكمية الحالية : </strong>
@@ -168,7 +167,6 @@ const ProductDetails = () => {
                                 <strong>{`${productDetails.lastUnitCost}$` || 'غير متوفر'}</strong>
                             </div>
                         </div>
-
                         <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
                             <strong>معرف المادة : </strong>
                             <strong>{productDetails.product.id}</strong>

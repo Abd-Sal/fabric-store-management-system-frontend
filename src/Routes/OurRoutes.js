@@ -7,9 +7,11 @@ export const OurRoutes = {
     Purchases:{
         ShowAll: '/purchases/show',
         Bill: '/purchases/new-bill',
-        ShowExpense: '/purchases/show-expense',
-        Expense: '/purchases/expense',
         Details: '/purchases/:purchaseId/details'
+    },
+    Expenses:{
+        Show: '/expenses',
+        Details: '/expenses/:expenseId/details',
     },
     Sales: {
         ShowAll: '/sales/show',
@@ -25,7 +27,6 @@ export const OurRoutes = {
         Details: '/catalogs/:catalogId/details',
         Create: '/catalogs/create',
         ShowAssingedCatalogs: '/catalogs/show-assigned-catalogs',
-        AssignCatalogs: '/catalogs/assigning-catalogs',
     },
-    Payments: "/payments"
+    Payments: `/payments`
 }

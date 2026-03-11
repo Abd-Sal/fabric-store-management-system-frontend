@@ -257,7 +257,7 @@ const UpdateCustomerModal = ({token, oldCustomer, implementationsUpdateCustomer,
           </Formik>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={handleClose}>
+          <Button variant="danger" disabled={loader} onClick={handleClose}>
             الغاء
           </Button>
           <Button variant="success" disabled={loader || !checkIfEdited()} onClick={triggerSubmit}>

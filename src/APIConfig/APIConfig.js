@@ -58,7 +58,8 @@ export const APIConfig = {
         EndpointDetails: "/products"
     },
     Payment:{
-        Get: "/payments"
+        Get: "/payments",
+        EndpointDetails: "/payments",
     },
     Catalog:{
         Get: "/catalogs",
@@ -72,6 +73,14 @@ export const APIConfig = {
         Return: (id) => `/catalogs/${id}/return-catalog`,
         Destroy: (id) => `/catalogs/${id}/destroy`,
         Pay: (id) => `/catalogs/${id}/pay`,
-        EndpointDetails: "/catalogs"
-    }
+        EndpointDetails: "/catalogs",
+        AssignedCatalogsEndpointsDetails: "/catalogs/assigned-catalogs"
+    },
+    Expense:{
+        GetAll: '/expenses',
+        Get: (id) => `/expenses/${id}`,
+        Create: '/expenses',
+        Delete: (id) => `/expenses/${id}`,
+        EndpointDetails: "/expenses"
+    },
 }

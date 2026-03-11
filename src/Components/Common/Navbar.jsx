@@ -23,16 +23,15 @@ function ColorSchemesExample() {
                 <Nav className="me-auto d-flex justify-content-center align-items-center gap-4">
                     <Nav.Link as={NavLink} to={OurRoutes.Home} end>الرئيسية</Nav.Link>
                     <Nav.Link as={NavLink} to={OurRoutes.Products}>المنتجات</Nav.Link>
-                    {/* Purchases */}
+                    {/* Purchases And Expenses*/}
                     <Dropdown>
                       <Dropdown.Toggle variant="dark" id="dropdown-basic">
                         مصاريف
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
                         <Dropdown.Item as={NavLink} to={OurRoutes.Purchases.ShowAll}>مراجعة فواتير مشتريات البضائع <VscPreview fontSize={20}/></Dropdown.Item>
-                        <Dropdown.Item as={NavLink} to={OurRoutes.Purchases.ShowExpense}>مراجعة فواتير مصاريف المحل <VscPreview fontSize={20}/></Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to={OurRoutes.Expenses.Show}>مراجعة فواتير مصاريف المحل <VscPreview fontSize={20}/></Dropdown.Item>
                         <Dropdown.Item as={NavLink} to={OurRoutes.Purchases.Bill}>فاتورة مشتريات جديدة <IoIosAddCircleOutline fontSize={25}/></Dropdown.Item>
-                        <Dropdown.Item as={NavLink} to={OurRoutes.Purchases.Expense}>تسجيل مصاريف محل <IoIosAddCircleOutline fontSize={25}/></Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
                     {/* Sales */}
@@ -56,7 +55,6 @@ function ColorSchemesExample() {
                       <Dropdown.Menu>
                         <Dropdown.Item as={NavLink} to={OurRoutes.Catalogs.ShowAll}>تصفح الكاتالوغات <VscPreview fontSize={20}/></Dropdown.Item>
                         <Dropdown.Item as={NavLink} to={OurRoutes.Catalogs.ShowAssingedCatalogs}>تصفح الكاتالوغات المعارة <VscPreview fontSize={20}/></Dropdown.Item>
-                        <Dropdown.Item as={NavLink} to={OurRoutes.Catalogs.AssignCatalogs}>اعارة كاتالوغات لعميل <IoIosAddCircleOutline fontSize={25}/></Dropdown.Item>
                         <Dropdown.Item as={NavLink} to={OurRoutes.Catalogs.Create}>كاتالوغ جديد <IoIosAddCircleOutline fontSize={25}/></Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>

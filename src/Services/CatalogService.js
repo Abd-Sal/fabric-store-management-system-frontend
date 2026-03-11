@@ -153,5 +153,15 @@ export const CatalogService = {
             }
         });
         return response;
+    },
+    AssignedCatalogsEndpointsDetails: ({token}) => {
+        let url = `${APIConfig.BASE_URL}${APIConfig.Catalog.AssignedCatalogsEndpointsDetails}`;       
+        const response = axios.options(url,{
+            headers: {
+                'Content-Type': "application/json",
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response;
     }
 }

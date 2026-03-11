@@ -26,6 +26,9 @@ import SaleDetails from './Pages/Sale/SaleDetails';
 import CustomerDetails from './Pages/Customer/CustomerDetails';
 import SupplierDetails from './Pages/Supplier/SupplierDetails';
 import CatalogDetails from './Pages/Catalog/CatalogDetails';
+import AssignedCatalogs from './Pages/Catalog/AssignedCatalogs';
+import Expenses from './Pages/Expense/Expenses';
+import ExpenseDetails from './Pages/Expense/ExpenseDetails';
 
 function App() {
   const {isInitialized} = useContext(GlobalContext)
@@ -47,10 +50,13 @@ function App() {
           <Route path={OurRoutes.Suppliers} element={isInitialized ? <Suppliers /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.SuppliersDetails} element={isInitialized ? <SupplierDetails /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Catalogs.ShowAll} element={isInitialized ? <Catalogs /> : <Navigate to={OurRoutes.Login} replace />} />
+          <Route path={OurRoutes.Catalogs.ShowAssingedCatalogs} element={isInitialized ? <AssignedCatalogs /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Catalogs.Details} element={isInitialized ? <CatalogDetails /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Catalogs.ShowByCustomer} element={isInitialized ? <CatalogsByCustomer /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Catalogs.Create} element={isInitialized ? <CreateCatalog /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.Products} element={isInitialized ? <Product /> : <Navigate to={OurRoutes.Login} replace />} />
+          <Route path={OurRoutes.Expenses.Show} element={isInitialized ? <Expenses /> : <Navigate to={OurRoutes.Login} replace />} />
+          <Route path={OurRoutes.Expenses.Details} element={isInitialized ? <ExpenseDetails /> : <Navigate to={OurRoutes.Login} replace />} />
           <Route path={OurRoutes.ProductDetails} element={isInitialized ? <ProductDetails /> : <Navigate to={OurRoutes.Login} replace />} />
         </Route>
         <Route path='*' element={<NotFound />} />

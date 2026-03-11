@@ -13,6 +13,7 @@ import { FaArrowRight } from "react-icons/fa6";
 import PayRestAmount from "../../Components/Common/PayRestAmount";
 import AssignCatalogModal from "../../Components/Catalog/AssignCatalogModal";
 import ConfirmationCatalogModal from "../../Components/Catalog/ConfirmationCatalogModal";
+import { OurRoutes } from "../../Routes/OurRoutes"
 
 const CatalogDetails = () => {
     const {authInfo} = useContext(GlobalContext)
@@ -176,7 +177,7 @@ const CatalogDetails = () => {
                                     setNeedRefresh={setNeedRefresh}
                                     bodyTitle={'هل انت متأكد انك تريد حذف هذا الكاتالوغ ؟'}
                                     title={'هل انت متأكد'}
-                                    specialBehavior={()=> navigate('/catalogs/show', {replace: true})}
+                                    specialBehavior={()=> navigate(`${OurRoutes.Catalogs.ShowAll}`, {replace: true})}
                                 />
                             }
                             {
