@@ -10,7 +10,7 @@ const CreateExpenseModal = ({token, implementationsCreateExpense, setAddedExpens
     const expenseSchema = Yup.object().shape({
         message: Yup.string()
             .min(3, 'الوصف بجب ان يكون على الأقل 3 أحرف')
-            .max(450, 'الوصف يجب أن يكون على الأكثر 450 حرف')
+            .max(100, 'الوصف يجب أن يكون على الأكثر 100 حرف')
             .required('الوصف مطلوب'),
 
         dollarPriceInSyr: Yup.number()

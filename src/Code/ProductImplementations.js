@@ -137,6 +137,43 @@ export const ProductImplementations = {
             setLoader(false);
         });
     },
+    GetProductsWhichWillRanOut: ({token, setProducts, setLoader, setFailer, filter, setPagination}) => {
+        setLoader(true);
+        setFailer('');
+        ProductService.GetProductsWhichWillRanOut({
+            token: token,
+            minQuantity: filter.minQuantity,
+            page: filter.page,
+            pageSize: filter.pageSize
+        })
+        .then(response => {
+            const data = response.data;
+            setProducts(data.items);
+            setPagination({
+                pageNumber: data.totalPages < filter.page ? 1 : data.pageNumber,
+                totalItems: data.totalItems,
+                totalPages: data.totalPages,
+                hasPreviousPage: data.hasPreviousPage,
+                hasNextPage: data.hasNextPage
+            })
+        })
+        .catch(error => {
+            if (error.response && error.response.data) {
+                const errorData = error.response.data;
+                setFailer({
+                    title: errorData.title || 'فشل في تحميل المواد',
+                    errors: errorData.errors || { General: ['حدث خطأ غير متوقع'] }
+                });
+            } else {
+                setFailer({
+                    title: 'فشل الاتصال بالخادم',
+                    errors: { General: [error.message || 'يرجى المحاولة مرة أخرى'] }
+                });
+            }
+        }).finally(() => {
+            setLoader(false);
+        });
+    },
     GetProductTransactions: ({token, id, setTransactions, setLoader, setFailer, page, pageSize, setPagination}) => {
         setLoader(true);
         setFailer(null);

@@ -6,8 +6,9 @@ import { GlobalContext } from "../../Context/GlobalContext"
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
-import PaginationButtons from "../../Components/Common/PaginationButtons"
 import DataViewer from "../../Components/Common/DataViewer"
+import PaginationButtons from "../../Components/Common/PaginationButtons"
+import { CurrentDate } from "../../HelperTools/CurrentDate"
 
 const Sales = () => {
   const {authInfo} = useContext(GlobalContext)
@@ -27,8 +28,8 @@ const Sales = () => {
     sortDir: 'desc',
     page: 1,
     pageSize: 50,
-    from: '',
-    to: '',
+    from: ``,
+    to: ``,
   })
   const [pagination, setPagination] = useState({
     pageNumber: '',
@@ -274,11 +275,11 @@ const Sales = () => {
                   value: "status"
                 },
                 {
-                  label: "معرف المورد",
+                  label: "معرف العميل",
                   value: "customerID"
                 },
                 {
-                  label: "اسم المورد",
+                  label: "اسم العميل",
                   value: "customerName"
                 },
                 {

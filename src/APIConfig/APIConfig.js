@@ -55,6 +55,7 @@ export const APIConfig = {
         ProductPurchases: (id) => `/products/${id}/purchases`,
         ProductSearchForBill: (search) => `/products/search?code=${search}`,
         GetProductsByCode: (code) => `/products/get-by-code?code=${code}`,
+        GetProductsWhichWillRanOut: `/products/will-ran-out`,
         EndpointDetails: "/products"
     },
     Payment:{
@@ -74,7 +75,8 @@ export const APIConfig = {
         Destroy: (id) => `/catalogs/${id}/destroy`,
         Pay: (id) => `/catalogs/${id}/pay`,
         EndpointDetails: "/catalogs",
-        AssignedCatalogsEndpointsDetails: "/catalogs/assigned-catalogs"
+        AssignedCatalogsEndpointsDetails: "/catalogs/assigned-catalogs",
+        GetCustomersWhoHasCatalogsAndNotBuyByMonthNumber: (month) => `/catalogs/${month}/customers-has-catalogs-and-not-buy`
     },
     Expense:{
         GetAll: '/expenses',

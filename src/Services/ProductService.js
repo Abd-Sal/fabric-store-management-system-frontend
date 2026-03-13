@@ -85,6 +85,18 @@ export const ProductService = {
         });
         return response;
     },
+    GetProductsWhichWillRanOut: ({token, minQuantity, page, pageSize}) => {
+        let url = `${APIConfig.BASE_URL}${APIConfig.Product.GetProductsWhichWillRanOut}`;
+        if(page) url += `?page=${page}&`;
+        if(pageSize) url += `pageSize=${pageSize}&`;
+        url += `minQuantity=${minQuantity}`
+        const response = axios.get(url,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response;
+    },
     SearchProductForBill: ({token, search})=>{
         let url = `${APIConfig.BASE_URL}${APIConfig.Product.ProductSearchForBill(search)}`;
         const response = axios.get(url,{

@@ -464,4 +464,41 @@ export const CatalogImplementations = {
             setLoader(false);
         });
     },
+    GetCustomersWhoHasCatalogsAndNotBuyByMonthNumber: ({token, setCustomers, setPagination, month, filter, setLoader, setFailer}) => {
+        setLoader(true);
+        setFailer('');
+        CatalogService.GetCustomersWhoHasCatalogsAndNotBuyByMonthNumber({
+            token: token,
+            month: month,
+            page: filter.page,
+            pageSize: filter.pageSize
+        })
+        .then(response => {
+            const data = response.data;
+            setCustomers(data.items);
+            setPagination({
+                pageNumber: data.totalPages < filter.page ? 1 : data.pageNumber,
+                totalItems: data.totalItems,
+                totalPages: data.totalPages,
+                hasPreviousPage: data.hasPreviousPage,
+                hasNextPage: data.hasNextPage
+            })
+        })
+        .catch(error => {
+            if (error.response && error.response.data) {
+                const errorData = error.response.data;
+                setFailer({
+                    title: errorData.title || 'فشل في عملية العملاء',
+                    errors: errorData.errors || { General: ['حدث خطأ غير متوقع'] }
+                });
+            } else {
+                setFailer({
+                    title: 'فشل الاتصال بالخادم',
+                    errors: { General: [error.message || 'يرجى المحاولة مرة أخرى'] }
+                });
+            }
+        }).finally(() => {
+            setLoader(false);
+        });
+    }
 }

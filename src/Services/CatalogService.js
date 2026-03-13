@@ -144,6 +144,17 @@ export const CatalogService = {
         });
         return response;
     },
+    GetCustomersWhoHasCatalogsAndNotBuyByMonthNumber: ({token, month, page, pageSize}) => {
+        let url = `${APIConfig.BASE_URL}${APIConfig.Catalog.GetCustomersWhoHasCatalogsAndNotBuyByMonthNumber(month)}?`;
+        if(page && !isNaN(page)) url += `page=${page}&`;
+        if(pageSize && !isNaN(pageSize)) url += `pageSize=${pageSize}&`;
+        const response = axios.get(url,{
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response;
+    },
     EndpointsDetails: ({token}) => {
         let url = `${APIConfig.BASE_URL}${APIConfig.Catalog.EndpointDetails}`;       
         const response = axios.options(url,{
