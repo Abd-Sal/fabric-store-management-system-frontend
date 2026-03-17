@@ -1,6 +1,8 @@
+import config from '../APIConfig/config.json';
+
 export const APIConfig = {
-    BASE_URL: "https://localhost:7093/api",
-    BASE_DOMAIN: "https://localhost:7093",
+    BASE_URL: `${config.apiUrl}/api`,
+    BASE_DOMAIN: `${config.apiUrl}`,
     Auth: {
         Login: "/auth"
     },
