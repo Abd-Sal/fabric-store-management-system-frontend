@@ -1,6 +1,6 @@
 export const APIConfig = {
-    BASE_URL: `https://localhost:7093/api`,
-    BASE_DOMAIN: `https://localhost:7093`,
+    BASE_URL: `https://192.168.1.111:7093/api`,
+    BASE_DOMAIN: `https://192.168.1.111:7093`,
     Auth: {
         Login: "/auth"
     },
