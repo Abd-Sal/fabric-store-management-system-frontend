@@ -7,9 +7,9 @@ import { CurrentDate } from "../../HelperTools/CurrentDate"
 
 const Home = () => {
   return (
-    <Container fluid>
+    <Container >
       <Row>
-        <Col lg={12} style={{height: 500}}>
+        <Col lg={12} className="py-3">
           <SalesForHome 
             title={`فواتير مبيعات اليوم ${CurrentDate()}`}
             emptyMessage={`لا توجد فواتير مبيعات لعرضها.`}
@@ -26,7 +26,7 @@ const Home = () => {
             }
           />
         </Col>
-        <Col lg={12} style={{height: 500}}>
+        <Col lg={12} className="py-3">
           <PurchasesForHome
             title={`فواتير مشتريات اليوم ${CurrentDate()}`}
             emptyMessage={`لا توجد فواتير غير مدفوعة لعرضها.`}
@@ -43,7 +43,7 @@ const Home = () => {
             }
           />
         </Col>
-        <Col lg={12} style={{height: 500}}>
+        <Col lg={12} className="py-3">
           <SalesForHome
             title={`فواتير مبيعات الغير مدفوعة`}
             emptyMessage={`لا توجد فواتير غير مدفوعة لعرضها.`}
@@ -60,7 +60,7 @@ const Home = () => {
             }
           />
         </Col>
-        <Col lg={12} style={{height: 500}}>
+        <Col lg={12} className="py-3">
           <PurchasesForHome
             title={`فواتير مشتريات الغير مدفوعة`}
             emptyMessage={`لا توجد فواتير غير مدفوعة لعرضها.`}
@@ -77,13 +77,13 @@ const Home = () => {
             }
           />
         </Col>
-        <Col lg={12} style={{height: 500}}>
+        <Col lg={12} className="py-3">
           <CatalogForCustomerWhoNotBuy
             title="الزبائن الذين لديهم كاتالوغات ولم يقومو بالشراء منذ شهر او أكثر"
             emptyMessage="لا يوجد زبائن للعرض"
           />
         </Col>
-        <Col lg={12} style={{height: 500}}>
+        <Col lg={12} className="py-3">
           <ProductQuantitiesBeforeRanout 
             title="البضائع التي على وشك النفاذ (الكمية اقل من 10 متر)"
             emptyMessage="لا يوجد بضائع للعرض"
