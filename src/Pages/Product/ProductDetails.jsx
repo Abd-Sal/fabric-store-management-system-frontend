@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react"
 import { GlobalContext } from "../../Context/GlobalContext"
-import { NavLink, useParams} from "react-router-dom"
+import { useParams} from "react-router-dom"
 import { ProductImplementations } from "../../Code/ProductImplementations"
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
-import { Col, Container, Pagination, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import { EmptyObjectChecker } from "../../HelperTools/EmptyObjectChecker";
 import DataViewer from "../../Components/Common/DataViewer";
@@ -60,9 +60,9 @@ const ProductDetails = () => {
             note: item.note,
             quantityChange: parseFloat(item.quantityChange) > 0 ? <div className="bg-success px-2 py-1 rounded-4 text-white">+{item.quantityChange}</div> : <div className="bg-danger px-2 py-1 rounded-4 text-white">{item.quantityChange}</div>,
             referenceID: 
-                <NavLink className={'text-success text-decoration-none fw-bold fst-italic'} to={`/${item.referenceType == 'Sample' ? 'catalogs' : item.referenceType == 'Purchase' ? 'purchases' : 'sales'}/${item.referenceID}/details`} target="_blank">
+                <div className={'text-success text-decoration-none fw-bold fst-italic'}>
                     {item.referenceID}
-                </NavLink>,
+                </div>,
             referenceType: item.referenceType == 'Sample' ? 'عينة' : item.referenceType == 'Purchase' ? 'شراء' : item.referenceType == 'Sale' ? 'بيع' : item.referenceType,
             createdAt: item.createdAt
         }))
@@ -115,7 +115,7 @@ const ProductDetails = () => {
     }, [filter])
 
     return (
-        <Container className="text-white">
+        <Container className="text-white mt-lg-0 mt-3">
             {/* Product Details */}
             <Row>
                 <Col lg={12}>
@@ -157,43 +157,43 @@ const ProductDetails = () => {
                         <div>
                             <h2>تفاصيل المادة</h2>
                         </div>
-                        <div className="py-2 d-flex justify-content-start align-items-center gap-3 w-100">
-                            <div className="p-2 bg-success w-25 d-flex justify-content-center align-items-center gap-2 rounded-5 border border-3 border-white">
+                        <div className="py-2 d-flex flex-wrap justify-content-start align-items-center gap-3 w-100">
+                            <div className="p-3 py-3 bg-success w-auto d-flex justify-content-center align-items-center gap-2 rounded-5 border border-3 border-white">
                                 <strong>الكمية الحالية : </strong>
                                 <strong>{`${productDetails.currentQuantity} ${productDetails.product.unit}` || 'غير متوفر'}</strong>
                             </div>
-                            <div className="p-2 bg-success w-25 d-flex justify-content-center align-items-center gap-2 rounded-5 border border-3 border-white">
+                            <div className="p-3 py-3 bg-success w-auto d-flex justify-content-center align-items-center gap-2 rounded-5 border border-3 border-white">
                                 <strong>اخر سعر رأس مال : </strong>
                                 <strong>{`${productDetails.lastUnitCost}$` || 'غير متوفر'}</strong>
                             </div>
                         </div>
-                        <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                             <strong>معرف المادة : </strong>
                             <strong>{productDetails.product.id}</strong>
                         </div>
-                        <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                             <strong>الكود كامل : </strong>
                             <strong>{productDetails.product.productCode}</strong>
                         </div>
-                        <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                             <strong>الكود : </strong>
                             <strong>{productDetails.product.code}</strong>
                         </div>
-                        <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                             <strong>اللون : </strong>
                             <strong>{productDetails.product.color}</strong>
                         </div>
-                        <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                             <strong>وحدة التخزين : </strong>
                             <strong>{productDetails.product.unit}</strong>
                         </div>
-                        <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                             <strong>تاريخ الانشاء : </strong>
                             <strong>{new Date(productDetails.product.createdAt + 'Z').toLocaleString() || 'غير متوفر'}</strong>
                         </div>
                         {
                             productDetails.lastUpdateAt &&
-                            <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                            <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                                 <strong>تاريخ اخر تعديل : </strong>
                                 <strong>{new Date(productDetails.lastUpdateAt + 'Z').toLocaleString() || 'غير متوفر'}</strong>
                             </div>
@@ -285,14 +285,20 @@ const ProductDetails = () => {
                                     }
                                     ]}
                                     bodyData={transactionsMapper()}
-                                    enableGoToDetails={false}
+                                    goToDetails={(e) => {
+                                        const row = e.target.closest('tr');
+                                        if (row) {
+                                            const id = row.id.split('-')[1];
+                                            window.open(`/${productTransactions[id].referenceType == 'Sample' ? 'catalogs' : productTransactions[id].referenceType == 'Purchase' ? 'purchases' : 'sales'}/${productTransactions[id].referenceID}/details`, '_blank');
+                                        }
+                                    }}
                                 />
                             </div>
                             <div className="w-100 d-flex justify-content-between align-items-center gap-2">
                                 <Button 
                                     disabled={transactionsLoader || !pagination.hasPreviousPage}
                                     variant="dark"
-                                    className="px-5"
+                                    className="px-sm-5"
                                     onClick={handlePreviousPage}
                                 >السابق</Button>
                                 <div>
@@ -301,7 +307,7 @@ const ProductDetails = () => {
                                 <Button
                                     disabled={transactionsLoader || !pagination.hasNextPage}
                                     variant="dark"
-                                    className="px-5"
+                                    className="px-sm-5"
                                     onClick={handleNextPage}
                                 >التالي</Button>
                             </div>

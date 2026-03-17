@@ -264,7 +264,7 @@ const SupplierDetails = () => {
                   <div>
                       <h2>تفاصيل المورد</h2>
                   </div>
-                  <div className="w-100 d-flex justify-content-start align-items-center gap-3">
+                  <div className="w-100 d-flex flex-wrap justify-content-start align-items-center gap-3">
                       <Button
                           variant={`${supplierDetails.isActive ? 'success' : 'danger'}`}
                           className="d-flex justify-content-center align-items-center rounded-4 px-5 py-3 text-white fw-bold border border-3 border-white"
@@ -305,36 +305,36 @@ const SupplierDetails = () => {
                           />
                       }
                   </div>
-                  <div className="py-2 supplier-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                  <div className="py-2 supplier-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                       <strong>معرف المورد : </strong>
                       <strong>{supplierDetails.id}</strong>
                   </div>
-                  <div className="py-2 supplier-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                  <div className="py-2 supplier-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                       <strong>الاسم : </strong>
                       <strong>{supplierDetails.name}</strong>
                   </div>
                   {
                       supplierDetails.phone &&
-                      <div className="py-2 supplier-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                      <div className="py-2 supplier-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                           <strong>الهاتف : </strong>
                           <strong>{supplierDetails.phone || 'غير متوفر'}</strong>
                       </div>
                   }
                   {
                       supplierDetails.email &&
-                      <div className="py-2 supplier-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                      <div className="py-2 supplier-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                           <strong>البريد الالكتروني : </strong>
                           <strong>{supplierDetails.email || 'غير متوفر'}</strong>
                       </div>
                   }
                   {
                       supplierDetails.address &&
-                      <div className="py-2 supplier-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                      <div className="py-2 supplier-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                           <strong>العنوان : </strong>
                           <strong>{supplierDetails.address || 'غير متوفر'}</strong>
                       </div>
                   }
-                  <div className="py-2 supplier-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                  <div className="py-2 supplier-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                       <strong>تاريخ الانشاء : </strong>
                       <strong>{new Date(supplierDetails.joinDate + 'Z').toLocaleString() || 'غير متوفر'}</strong>
                   </div>
@@ -379,7 +379,7 @@ const SupplierDetails = () => {
                                   placeholder="بحث حسب رقم الفاتورة..."
                               />
                           </div>
-                          <div className="d-flex justify-content-start align-items-center gap-3 w-auto">
+                          <div className="d-flex flex-wrap justify-content-start align-items-center gap-3 w-auto">
                               <div className="form-group d-flex justify-cotent-start align-items-center gap-1">
                                   <label>من</label>
                                   <input
@@ -480,19 +480,19 @@ const SupplierDetails = () => {
                   </div>
                   <div className="w-100 d-flex justify-content-between align-items-center gap-2">
                       <Button 
-                          disabled={supplierPurchasesLoader || !supplierPurchasespagination.hasPreviousPage}
-                          variant="dark"
-                          className="px-5"
-                          onClick={handlePreviousPage}
+                            disabled={supplierPurchasesLoader || !supplierPurchasespagination.hasPreviousPage}
+                            variant="dark"
+                            className="px-sm-5"
+                            onClick={handlePreviousPage}
                       >السابق</Button>
                       <div>
                           <strong>الصفحة: {supplierPurchasespagination.pageNumber}/{supplierPurchasespagination.totalPages}</strong>
                       </div>
                       <Button
-                          disabled={supplierPurchasesLoader || !supplierPurchasespagination.hasNextPage}
-                          variant="dark"
-                          className="px-5"
-                          onClick={handleNextPage}
+                            disabled={supplierPurchasesLoader || !supplierPurchasespagination.hasNextPage}
+                            variant="dark"
+                            className="px-sm-5"
+                            onClick={handleNextPage}
                       >التالي</Button>
                   </div>
               </div>

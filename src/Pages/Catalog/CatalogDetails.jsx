@@ -42,7 +42,7 @@ const CatalogDetails = () => {
 
     const catalogMapper = () => {
         return catalogDetails.items.map(item => ({
-            productID: <NavLink to={`/products/${item.productID}/details`} target="_blank" className={`text-decoration-none fw-bold text-dark`}>{item.productID}</NavLink>,
+            productID: <NavLink to={`/products/${item.productID}/details`} target="_blank" className={`text-decoration-none fw-bold text-white`}>{item.productID}</NavLink>,
             productCode: item.productCode,
             quantity: `${item.quantity == 0? '---' : item.quantity}`,
             isDeducted: <div className={`text-white d-flex justify-content-center align-items-center px-3 py-1 rounded-4 ${item.isDeducted ? 'bg-danger' : 'bg-success'}`}>{item.isDeducted ? 'مقتطع' : 'غير مقتطع'}</div>
@@ -115,11 +115,11 @@ const CatalogDetails = () => {
                 <Col lg={12}>
                 {
                     !EmptyObjectChecker(catalogDetails) &&
-                    <div className="my-3 bg-secondary d-flex flex-column justify-content-between align-items-center gap-2 rounded-3 border border-2 border-white p-3">
+                    <div className="my-3 bg-secondary d-flex flex-wrap flex-column justify-content-between align-items-center gap-2 rounded-3 border border-2 border-white p-3">
                         <div>
                             <h2>تفاصيل الكاتالوغ</h2>
                         </div>
-                        <div className="w-100 d-flex justify-content-start align-items-center gap-3">
+                        <div className="w-100 d-flex flex-wrap justify-content-start align-items-center gap-3">
                             <div className={`text-white d-flex justify-content-start align-items-center px-5 py-3 rounded-4 border border-3 border-white ${catalogDetails.status == 'Available' ? 'bg-success' : catalogDetails.status == 'Assigned' ? 'bg-warning' : 'bg-danger'}`}>
                                 <strong>الحالة : {catalogDetails.status == 'Available' ? 'متوفر' : catalogDetails.status == 'Assigned' ? 'محجوز' : 'تالف'}</strong>
                             </div>
@@ -198,27 +198,27 @@ const CatalogDetails = () => {
                             <strong>معرف الكاتالوغ : </strong>
                             <strong>{catalogDetails.id}</strong>
                         </div>
-                        <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                             <strong>الكود : </strong>
                             <strong>{catalogDetails.code}</strong>
                         </div>
                         {
                             catalogDetails.Description &&
-                            <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                            <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                                 <strong>الوصف : </strong>
                                 <strong className="w-50">{catalogDetails.description || 'غير متوفر'}</strong>
                             </div>
                         }
                         {
                             catalogDetails.isPurchased &&
-                            <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                            <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                                 <strong>هل تم شرائه : </strong>
                                 <strong >نعم</strong>
                             </div>
                         }
                         {
                             catalogDetails.isPurchased &&
-                            <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                            <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                                 <strong>معرف المورد : </strong>
                                 <strong>
                                     <NavLink
@@ -234,7 +234,7 @@ const CatalogDetails = () => {
                         }
                         {
                             catalogDetails.isPurchased &&
-                            <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                            <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                                 <strong>اسم المورد : </strong>
                                 <strong>
                                     <NavLink
@@ -250,32 +250,32 @@ const CatalogDetails = () => {
                         }
                         {
                             catalogDetails.isPurchased &&
-                            <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                            <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                                 <strong>السعر : </strong>
                                 <strong className="text-dark">{parseFloat(catalogDetails.price)}$</strong>
                             </div>
                         }
                         {
                             catalogDetails.isPurchased &&
-                            <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                            <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                                 <strong>المبلغ المدفوع : </strong>
                                 <strong className="text-dark">{parseFloat(catalogDetails.paidAmount)}$</strong>
                             </div>
                         }
-                        <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                             <strong>تاريخ الانشاء : </strong>
                             <strong>{new Date(catalogDetails.createdAt + 'Z').toLocaleString()}</strong>
                         </div>
                         {
                             catalogDetails.lastUpdateAt &&
-                            <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                            <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                                 <strong>تاريخ اخر تعديل : </strong>
                                 <strong>{new Date(catalogDetails.lastUpdateAt + 'Z').toLocaleString()}</strong>
                             </div>
                         }
                         {
                             !EmptyObjectChecker(catalogBorrower) &&
-                            <div className="py-2 px-1 w-100 border border-3 border-white rounded-3 bg-success d-flex flex-column justify-content-between align-items-center gap-2">
+                            <div className="py-2 px-1 w-100 border border-3 border-white rounded-3 bg-success d-flex flex-wrap text-break flex-column justify-content-between align-items-center gap-2">
                                 <strong className="text-white fw-bold">العميل المستعير</strong>
                                 <div className="w-100 d-flex justify-content-between align-items-center">
                                     <strong>معرف العميل :</strong>
@@ -324,7 +324,13 @@ const CatalogDetails = () => {
                                         },
                                     ]}
                                     bodyData={catalogMapper()}
-                                    enableGoToDetails={false}
+                                    goToDetails={(e) => {
+                                        const row = e.target.closest('tr');
+                                        if (row) {
+                                            const id = row.id.split('-')[1];
+                                            window.open(`/products/${catalogDetails.items[id].productID}/details`, '_blank');
+                                        }
+                                    }}
                                 />
                         </div>
                     </div>

@@ -92,11 +92,11 @@ const PurchaseDetails = () => {
                 <Col lg={12}>
                 {
                     !EmptyObjectChecker(purchaseDetails) &&
-                    <div className="my-3 bg-secondary d-flex flex-column justify-content-between align-items-center gap-2 rounded-3 border border-2 border-white p-3">
+                    <div className="my-3 bg-secondary d-flex flex-wrap flex-column justify-content-between align-items-center gap-2 rounded-3 border border-2 border-white p-3">
                         <div>
                             <h2>تفاصيل فاتورة مشتريات</h2>
                         </div>
-                        <div className="w-100 d-flex justify-content-start align-items-center gap-3">
+                        <div className="w-100 d-flex flex-wrap justify-content-start align-items-center gap-3">
                             <div className={`text-white d-flex justify-content-start align-items-center px-5 py-3 rounded-4 border border-3 border-white ${purchaseDetails.status == 'NotPaid' ? 'bg-danger' : purchaseDetails.status == 'NotCompleted' ? 'bg-warning' : 'bg-success'}`}>
                                 <strong>الحالة : {purchaseDetails.status == 'NotPaid' ? 'غير مدفوع' : purchaseDetails.status == 'NotCompleted' ? 'غير مكتمل' : 'مدفوع' || 'غير متوفر'}</strong>
                             </div>
@@ -114,27 +114,27 @@ const PurchaseDetails = () => {
                                 : ''
                             }
                         </div>
-                        <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                             <strong>معرف الفاتورة : </strong>
                             <strong>{purchaseDetails.id || 'غير متوفر'}</strong>
                         </div>
-                        <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                             <strong>رقم الفاتورة : </strong>
                             <strong>{purchaseDetails.invoiceNumber || 'غير متوفر'}</strong>
                         </div>
-                        <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                             <strong>عدد المواد : </strong>
                             <strong>{parseInt(purchaseDetails.productsCount) || 'غير متوفر'}</strong>
                         </div>
-                        <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                             <strong>قيمة الفاتورة : </strong>
                             <strong className="text-dark">{parseFloat(purchaseDetails.totalAmount) || 'غير متوفر'}$</strong>
                         </div>
-                        <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                             <strong>القيمة المدفوعة : </strong>
                             <strong className="text-dark">{toString(purchaseDetails.paidAmount).length > 0 ? parseFloat(purchaseDetails.paidAmount) : '0'  || 'غير متوفر'}$</strong>
                         </div>
-                        <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                             <strong>معرف المزود : </strong>
                             <strong>
                                 <NavLink
@@ -147,7 +147,7 @@ const PurchaseDetails = () => {
                                 </NavLink>
                             </strong>
                         </div>
-                        <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                             <strong>اسم المزود : </strong>
                             <strong>
                                 <NavLink
@@ -160,7 +160,7 @@ const PurchaseDetails = () => {
                                 </NavLink>
                             </strong>
                         </div>
-                        <div className="py-2 product-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 product-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                             <strong>تاريخ الانشاء : </strong>
                             <strong>{new Date(purchaseDetails.createdAt + 'Z').toLocaleString() || 'غير متوفر'}</strong>
                         </div>

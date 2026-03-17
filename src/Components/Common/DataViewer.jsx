@@ -2,7 +2,7 @@ const DataViewer = ({specialStyle = '', headData=[], bodyData=[], goToDetails, e
     
     return (
         <div className={`${specialStyle} rounded border-1 border-gray`} style={{ overflowX: 'auto' }}>
-            <table className={`table-sm table table-light table-hover table-border bg-gray table-striped`} style={{ minWidth: '100%', width: 'max-content' }}>
+            <table className={`table-sm table table-dark table-hover table-border border-secondary bg-gray table-striped`} style={{ minWidth: '100%', width: 'max-content' }}>
                 <thead>
                     <tr className="text-center border-1 border-gray">
                         <th scope="col" className="border-1 border-gray">#</th>
@@ -25,7 +25,7 @@ const DataViewer = ({specialStyle = '', headData=[], bodyData=[], goToDetails, e
                                 <td className="border-1 border-gray">{index + 1}</td>
                                 {
                                     headData.map((key, ind)=>(
-                                        <td key={`${index}-${ind}`} className="border-1 border-gray">
+                                        <td key={`${index}-${ind}`} className="p-2 border-1 border-gray">
                                             {
                                                 bodyD[key.value] ?
                                                     key.hasOwnProperty('dataType') ?

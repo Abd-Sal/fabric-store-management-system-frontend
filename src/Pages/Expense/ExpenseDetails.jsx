@@ -88,7 +88,7 @@ const ExpenseDetails = () => {
                         <div>
                             <h2>تفاصيل عملية الصرف</h2>
                         </div>
-                        <div className="w-100 d-flex justify-content-start align-items-center gap-3">
+                        <div className="w-100 d-flex flex-wrap justify-content-start align-items-center gap-3">
                             {
                                 checkDateWithLocaleString(expenseDetails.createdAt) &&
                                 <ConfirmationExpenseModal 
@@ -103,27 +103,27 @@ const ExpenseDetails = () => {
                                 />
                             }
                         </div>
-                        <div className="py-2 expense-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 expense-details-hover border-bottom w-100 d-flex flex-wrap text-breal justify-content-between align-items-center gap-2">
                             <strong>معرف العملية الصرفية : </strong>
                             <strong>{expenseDetails.id}</strong>
                         </div>
-                        <div className="py-2 expense-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 expense-details-hover border-bottom w-100 d-flex flex-wrap text-breal justify-content-between align-items-center gap-2">
                             <strong>الوصف التوضيحي : </strong>
                             <strong>{expenseDetails.message}</strong>
                         </div>
-                        <div className="py-2 expense-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 expense-details-hover border-bottom w-100 d-flex flex-wrap text-breal justify-content-between align-items-center gap-2">
                             <strong>سعر الدولار : </strong>
                             <strong>{parseFloat(expenseDetails.dollarPriceInSyr).toFixed(3)} SYR</strong>
                         </div>
-                        <div className="py-2 expense-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 expense-details-hover border-bottom w-100 d-flex flex-wrap text-breal justify-content-between align-items-center gap-2">
                             <strong>القيمة المدفوعة بالليرة السورية الجديدة: </strong>
                             <strong>{parseFloat(expenseDetails.syrianAmount).toFixed(3)} SYP</strong>
                         </div>
-                        <div className="py-2 expense-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 expense-details-hover border-bottom w-100 d-flex flex-wrap text-breal justify-content-between align-items-center gap-2">
                             <strong>القيمة المدفوعة بالدولار : </strong>
                             <strong>{parseFloat(expenseDetails.dollarAmount).toFixed(3)} $</strong>
                         </div>
-                        <div className="py-2 expense-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 expense-details-hover border-bottom w-100 d-flex flex-wrap text-breal justify-content-between align-items-center gap-2">
                             <strong>تاريخ الدفع : </strong>
                             <strong>{new Date(expenseDetails.createdAt + 'Z').toLocaleString() || 'غير متوفر'}</strong>
                         </div>

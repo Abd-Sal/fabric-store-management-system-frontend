@@ -404,7 +404,7 @@ const CustomerDetails = () => {
                         <div>
                             <h2>تفاصيل العميل</h2>
                         </div>
-                        <div className="w-100 d-flex justify-content-start align-items-center gap-3">
+                        <div className="w-100 d-flex flex-wrap justify-content-start align-items-center gap-3">
                             <Button
                                 variant={`${customerDetails.isActive ? 'success' : 'danger'}`}
                                 className="d-flex justify-content-center align-items-center rounded-4 px-5 py-3 text-white fw-bold border border-3 border-white"
@@ -445,40 +445,40 @@ const CustomerDetails = () => {
                                 />
                             }
                         </div>
-                        <div className="py-2 customer-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 customer-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                             <strong>معرف العميل : </strong>
                             <strong>{customerDetails.id}</strong>
                         </div>
-                        <div className="py-2 customer-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 customer-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                             <strong>الاسم الاول : </strong>
                             <strong>{customerDetails.firstName}</strong>
                         </div>
-                        <div className="py-2 customer-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 customer-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                             <strong>اسم العائلة : </strong>
                             <strong>{customerDetails.lastName}</strong>
                         </div>
                         {
                             customerDetails.phone &&
-                            <div className="py-2 customer-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                            <div className="py-2 customer-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                                 <strong>الهاتف : </strong>
                                 <strong>{customerDetails.phone || 'غير متوفر'}</strong>
                             </div>
                         }
                         {
                             customerDetails.email &&
-                            <div className="py-2 customer-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                            <div className="py-2 customer-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                                 <strong>البريد الالكتروني : </strong>
                                 <strong>{customerDetails.email || 'غير متوفر'}</strong>
                             </div>
                         }
                         {
                             customerDetails.address &&
-                            <div className="py-2 customer-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                            <div className="py-2 customer-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                                 <strong>العنوان : </strong>
                                 <strong>{customerDetails.address || 'غير متوفر'}</strong>
                             </div>
                         }
-                        <div className="py-2 customer-details-hover border-bottom w-100 d-flex justify-content-between align-items-center gap-2">
+                        <div className="py-2 customer-details-hover border-bottom w-100 d-flex flex-wrap text-break justify-content-between align-items-center gap-2">
                             <strong>تاريخ الانشاء : </strong>
                             <strong>{new Date(customerDetails.joinDate + 'Z').toLocaleString() || 'غير متوفر'}</strong>
                         </div>
@@ -495,8 +495,8 @@ const CustomerDetails = () => {
                             <h2>فواتير العميل</h2>
                         </div>
                         <div className="w-100">
-                            <div className={'d-flex justify-content-start align-items-center gap-3 flex-wrap'}>
-                                <div className="form-group d-flex justify-cotent-start align-items-center gap-1 w-auto">
+                            <div className={'d-flex flex-wrap justify-content-start align-items-center gap-3 flex-wrap'}>
+                                <div className="form-group d-flex flex-wrap justify-cotent-start align-items-center gap-1 w-auto">
                                     <label htmlFor="pageSize">عدد العناصر في الصفحة</label>
                                     <select
                                         name="pageSize"
@@ -511,7 +511,7 @@ const CustomerDetails = () => {
                                         <option value="50">50</option>
                                     </select>
                                 </div>
-                                <div className="form-group d-flex justify-cotent-start align-items-center gap-1">
+                                <div className="form-group d-flex flex-wrap justify-cotent-start align-items-center gap-1">
                                     <label htmlFor="search">بحث برقم الفاتورة</label>
                                     <input
                                         type="text"
@@ -523,7 +523,7 @@ const CustomerDetails = () => {
                                         placeholder="بحث حسب رقم الفاتورة..."
                                     />
                                 </div>
-                                <div className="d-flex justify-content-start align-items-center gap-3 w-auto">
+                                <div className="d-flex flex-wrap justify-content-start align-items-center gap-3 w-auto">
                                     <div className="form-group d-flex justify-cotent-start align-items-center gap-1">
                                         <label>من</label>
                                         <input
@@ -634,7 +634,7 @@ const CustomerDetails = () => {
                             <Button 
                                 disabled={customerSalesLoader || !customerSalespagination.hasPreviousPage}
                                 variant="dark"
-                                className="px-5"
+                                className="px-sm-5"
                                 onClick={handlePreviousPage}
                             >السابق</Button>
                             <div>
@@ -643,7 +643,7 @@ const CustomerDetails = () => {
                             <Button
                                 disabled={customerSalesLoader || !customerSalespagination.hasNextPage}
                                 variant="dark"
-                                className="px-5"
+                                className="px-sm-5"
                                 onClick={handleNextPage}
                             >التالي</Button>
                         </div>
@@ -659,8 +659,8 @@ const CustomerDetails = () => {
                             <h2>كاتالوغات العميل</h2>
                         </div>
                         <div className="w-100">
-                            <div className={'d-flex justify-content-start align-items-center gap-3 flex-wrap'}>
-                                <div className="form-group d-flex justify-cotent-start align-items-center gap-1 w-auto">
+                            <div className={'d-flex flex-wrap justify-content-start align-items-center gap-3 flex-wrap'}>
+                                <div className="form-group d-flex flex-wrap justify-cotent-start align-items-center gap-1 w-auto">
                                     <label htmlFor="pageSize-catalog">عدد العناصر في الصفحة</label>
                                     <select
                                         name="pageSize-catalog"
@@ -675,7 +675,7 @@ const CustomerDetails = () => {
                                         <option value="50">50</option>
                                     </select>
                                 </div>
-                                <div className="form-group d-flex justify-cotent-start align-items-center gap-1">
+                                <div className="form-group d-flex flex-wrap justify-cotent-start align-items-center gap-1">
                                     <label htmlFor="search-catalog">بحث  الكود</label>
                                     <input
                                         type="text"
@@ -687,7 +687,7 @@ const CustomerDetails = () => {
                                         placeholder="بحث حسب كود الكاتالوغ..."
                                     />
                                 </div>
-                                <div className="d-flex justify-content-start align-items-center gap-3 w-auto">
+                                <div className="d-flex flex-wrap justify-content-start align-items-center gap-3 w-auto">
                                     <div className="form-group d-flex justify-cotent-start align-items-center gap-1">
                                         <label htmlFor="fromDate-catalog">من</label>
                                         <input
@@ -713,7 +713,7 @@ const CustomerDetails = () => {
                                         />
                                     </div>
                                 </div>
-                                <div className="form-group d-flex justify-content-start align-items-center gap-2 w-auto">
+                                <div className="form-group d-flex flex-wrap justify-content-start align-items-center gap-2 w-auto">
                                     <label htmlFor="including-returned">تضمين الكاتالوغات المسترجعة</label>
                                     <input
                                         type="checkbox"
@@ -791,7 +791,7 @@ const CustomerDetails = () => {
                             <Button 
                                 disabled={customerCatalogsLoader || !customerCatalogspagination.hasPreviousPage}
                                 variant="dark"
-                                className="px-5"
+                                className="px-sm-5"
                                 onClick={handlePreviousPageCatalogs}
                             >السابق</Button>
                             <div>
@@ -800,7 +800,7 @@ const CustomerDetails = () => {
                             <Button
                                 disabled={customerCatalogsLoader || !customerCatalogspagination.hasNextPage}
                                 variant="dark"
-                                className="px-5"
+                                className="px-sm-5"
                                 onClick={handleNextPageCatalogs}
                             >التالي</Button>
                         </div>

@@ -117,7 +117,7 @@ const CreateCustomerModal = ({token, implementationsCreateCustomer, setAddedCust
             </div>
           }
           <Formik
-            initialValues={{ fistName: '', lastName: '', email: '', phone: '', address: '' }}
+            initialValues={{ firstName: '', lastName: '', email: '', phone: '', address: '' }}
             validationSchema={customerSchema}
             onSubmit={(values, { setSubmitting }) => {
               setCustomerRequest({

@@ -8,6 +8,7 @@ import { PaymentImplementations } from "../../Code/PaymentImplementations"
 import { GlobalContext } from "../../Context/GlobalContext"
 import PaginationButtons from "../../Components/Common/PaginationButtons"
 import DataViewer from "../../Components/Common/DataViewer"
+import CustomOffCanves from '../../Components/Common/CustomOffCanves';
 
 const Payments = () => {
   const {authInfo} = useContext(GlobalContext)
@@ -147,7 +148,7 @@ const Payments = () => {
         </Row>
         <Row>
           {/* Filteration */}
-          <Col lg={3}>
+          <Col lg={3} className='d-none d-lg-block'>
             <div>
               {/* Search Field */}
               <div className="form-group">
@@ -209,6 +210,75 @@ const Payments = () => {
                   />
               </div>
             </div>
+          </Col>
+          <Col xs={12} className='d-block d-lg-none'>
+            <CustomOffCanves 
+              title={'واجهة الفلاتر'}
+              shotBtnText={'الفلاتر'}
+              showBtnStyle='my-2 border-1 border-white btn-secondary px-5 cursor-pointer'
+            >
+              <div>
+                {/* Search Field */}
+                <div className="form-group">
+                    <label htmlFor="search">البحث حسب معرف العملية فقط</label>
+                    <input
+                        type="text"
+                        name="search"
+                        id="search"
+                        className="form-control"
+                        placeholder="بحث"
+                        onChange={handleSearch}
+                        value={filter.search}
+                    />
+                </div>
+
+                {/* Page Size Select */}
+                <div className="form-group">
+                    <label htmlFor="pageSize">عدد العناصر في الصفحة</label>
+                    <select
+                        name="pageSize"
+                        id="pageSize"
+                        className="form-select"
+                        onChange={handlePagSize}
+                        value={filter.pageSize}
+                    >
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+
+                {/* Date Range From */}
+                <div className="form-group">
+                    <label>من</label>
+                    <input
+                        type="date"
+                        name="fromDate"
+                        id="fromDate"
+                        className="form-control"
+                        min={"2025-01-01"}
+                        onChange={handleFrom}
+                        value={filter.from || dateRange.from}
+                    />
+                </div>
+
+                {/* Date Range To */}
+                <div className="form-group">
+                    <label>الى</label>
+                    <input
+                        type="date"
+                        name="toDate"
+                        id="toDate"
+                        className="form-control"
+                        min={"2025-01-01"}
+                        onChange={handleTo}
+                        value={filter.to || dateRange.to}
+                    />
+                </div>
+              </div>
+            </CustomOffCanves>
           </Col>
           <Col lg={9}>
             <Row>

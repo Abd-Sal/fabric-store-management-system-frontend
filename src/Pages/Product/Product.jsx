@@ -9,6 +9,7 @@ import { ProductImplementations } from "../../Code/ProductImplementations"
 import { GlobalContext } from "../../Context/GlobalContext"
 import PaginationButtons from "../../Components/Common/PaginationButtons"
 import DataViewer from "../../Components/Common/DataViewer"
+import CustomOffCanves from '../../Components/Common/CustomOffCanves';
 
 const Product = () => {
   const {authInfo} = useContext(GlobalContext)
@@ -146,6 +147,7 @@ const Product = () => {
                         filter={filter}
                         pagination={pagination}
                         setFilter={setFilter}
+                        isLoading={productLoader}
                       />
                     <div className="p-2 mt-2 rounded border bg-primary w-100 d-flex flex-wrap justify-content-start align-items-center gap-3">
                       <p className="mb-0"><strong>الصفحة:</strong> {pagination.pageNumber}</p>
@@ -159,7 +161,10 @@ const Product = () => {
             }
           </Col>
           {/* Filteration */}
-          <Col lg={3}>
+          <Col
+            lg={3}
+            className='d-none d-lg-block'
+          >
             {
               isLoading &&
               <div className="w-100 h-100 d-flex justify-content-center align-items-center">
@@ -204,6 +209,61 @@ const Product = () => {
                 setFilter={setFilter}
               />
             }
+          </Col>
+          <Col
+            xs={12}
+            className='d-block d-lg-none'
+          >
+            <CustomOffCanves 
+              title={'واجهة الفلاتر'}
+              shotBtnText={'الفلاتر'}
+              showBtnStyle=' mt-2 border-1 border-white btn-secondary px-5 cursor-pointer'
+            >
+              {
+                isLoading &&
+                <div className="w-100 h-100 d-flex justify-content-center align-items-center">
+                  <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </Spinner>
+                </div>
+              }
+              {
+                Object.keys(failer).length > 0 &&
+                <div className="w-100">
+                  <Alert variant="danger">
+                    <h5>{failer.title || 'فشل'}</h5>
+                    {
+                      failer.errors && Object.keys(failer.errors).length > 0 &&
+                      <ul className="list-unstyled mb-0 d-flex justify-content-start align-items-center flex-wrap">
+                        {
+                          Object.keys(failer.errors).map((key, index) => (
+                            <li key={index} className="w-100">{failer.errors[key]}</li>
+                          ))
+                        }
+                      </ul>
+                    }
+                  <Button onClick={fillEndpointDetails} variant="danger">اعادة المحاولة</Button>
+                  </Alert>
+                </div>
+              }
+              {
+                Object.keys(failer).length === 0 && !isLoading && (searchBy.length === 0 || sortBy.length === 0) &&
+                <Alert variant="warning" className="text-center">
+                  لا توجد تفاصيل نقاط نهاية للبحث والترتيب، يرجى المحاولة مرة أخرى.
+                </Alert>
+              }
+              {
+                Object.keys(failer).length === 0 && !isLoading && searchBy.length > 0 && sortBy.length > 0 &&
+                <PaginationFilterationSortingSearching 
+                  searchBy={searchBy}
+                  sortBy={sortBy}
+                  defaultSearchCol={defaultSearchCol}
+                  defaultSortCol={defaultSortCol}
+                  filter={filter}
+                  setFilter={setFilter}
+                />
+              }
+            </CustomOffCanves>
           </Col>
           {/* Products Table */}
           <Col lg={9}>
@@ -299,6 +359,7 @@ const Product = () => {
                         filter={filter}
                         pagination={pagination}
                         setFilter={setFilter}
+                        isLoading={productLoader}
                       />
                   </Col>
                 </Row>
