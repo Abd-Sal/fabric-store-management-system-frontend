@@ -1,7 +1,7 @@
 import { AuthService } from "../Services/AuthService"
 
 export const AuthImplementations = {
-    SendLogin : ({username, password, setLoader, setFailer, successBehavior})=>{
+    SendLogin : ({username, password, setLoader, setFailer, successBehavior})=>{ 
         setLoader(true);
         setFailer('');       
         AuthService.LoginRequest({username, password})
@@ -33,23 +33,21 @@ export const AuthImplementations = {
             setAuthInfo({})
         })
         .catch(error => {
-            console.log(error);
+            console.error(error);
         })
         .finally()
     },
-    SendVerify : ({onSuccess}) => {
-        AuthService.VerfiyRequest()
-        .then((response)=>{
-            if(onSuccess){
-                onSuccess(response.data)
+    SendVerify : async ({onSuccess, onFail}) => {
+        try {
+            const response = await AuthService.VerfiyRequest();
+            if (onSuccess) {
+                onSuccess(response.data);
             }
-            return true
-        })
-        .catch(error => {
-            console.log(error);
-        })
-        .finally(()=>{
-        })
-        return false
+            return true;
+        } catch (error) {
+            if(onFail)
+                onFail();
+            return false;
+        }
     }
 }
