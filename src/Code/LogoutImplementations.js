@@ -1,7 +1,14 @@
+import { AuthService } from "../Services/AuthService";
+
 export const LogoutImplementations = {
-    logout: (setAuthInfo, setIsInitialized)=>{
-        localStorage.removeItem('auth');
-        setAuthInfo({});
-        setIsInitialized(false);
+    logout: (setIsInitialized)=>{
+        AuthService.LogoutRequest()
+        .then((response)=>{
+            setIsInitialized(false);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+        .finally();
     }
 }

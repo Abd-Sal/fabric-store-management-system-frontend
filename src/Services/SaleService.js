@@ -1,6 +1,7 @@
 import { APIConfig } from "../APIConfig/APIConfig";
 import axios from 'axios';
-
+import { IncludingCredentials } from "../HelperTools/IncludingCredentials";
+IncludingCredentials();
 export const SaleService = {
     AllSales: ({token, page, pageSize, SortColumn, SortDir, From, To, Search, SearchColumn}) => {
         let url = `${APIConfig.BASE_URL}${APIConfig.Sales.Get}?`;

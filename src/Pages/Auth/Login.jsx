@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../Context/GlobalContext";
 import { useNavigate } from "react-router-dom";
 import LoadingPartPage from "../../Components/Common/LoadingPartPage";
-import { LoginImplementations } from "../../Code/LoginImplementations";
+import { AuthImplementations } from "../../Code/AuthImplementations";
 import Alert from 'react-bootstrap/Alert';
 import { OurRoutes } from "../../Routes/OurRoutes";
 
@@ -14,7 +14,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [failer, setFailer] = useState({});
   const navigate = useNavigate();
-  const implementations = LoginImplementations;
+  const implementations = AuthImplementations;
   const [auth, setAuth] = useState({
     username: '',
     password: ''
@@ -35,7 +35,6 @@ const Login = () => {
   }
   
   const successBehavior = (data)=>{   
-    localStorage.setItem('auth', JSON.stringify(data))
     setAuthInfo(data);
     setIsInitialized(true);
   }
@@ -52,7 +51,7 @@ const Login = () => {
   }
 
   useEffect(()=>{
-    if(isInitialized && authInfo && Object.keys(authInfo).length > 0){
+    if(isInitialized){
       navigate(OurRoutes.Home, {replace:true})
     }
   }, [authInfo])

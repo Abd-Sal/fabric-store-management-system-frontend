@@ -1,6 +1,6 @@
 import { AuthService } from "../Services/AuthService"
 
-export const LoginImplementations = {
+export const AuthImplementations = {
     SendLogin : ({username, password, setLoader, setFailer, successBehavior})=>{
         setLoader(true);
         setFailer('');       
@@ -26,5 +26,30 @@ export const LoginImplementations = {
         });
         return false
     },
-
+    SendLogout : ({setInitialized, setAuthInfo}) => {
+        AuthService.LogoutRequest()
+        .then((response) => {
+            setInitialized(false)
+            setAuthInfo({})
+        })
+        .catch(error => {
+            console.log(error);
+        })
+        .finally()
+    },
+    SendVerify : ({onSuccess}) => {
+        AuthService.VerfiyRequest()
+        .then((response)=>{
+            if(onSuccess){
+                onSuccess(response.data)
+            }
+            return true
+        })
+        .catch(error => {
+            console.log(error);
+        })
+        .finally(()=>{
+        })
+        return false
+    }
 }

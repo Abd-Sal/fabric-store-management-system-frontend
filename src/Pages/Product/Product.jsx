@@ -124,7 +124,7 @@ const Product = () => {
       <Container fluid className="text-white">
         <Row>
           <Col lg={12}>
-            <h2 className="d-flex justify-content-center p-2 border-1 border-bottom border-gray">واجهة المنتجات</h2>
+            <h2 className="d-flex justify-content-center p-2 border-1 border-bottom border-gray">واجهة المواد</h2>
           </Col>
         </Row>
         <Row>

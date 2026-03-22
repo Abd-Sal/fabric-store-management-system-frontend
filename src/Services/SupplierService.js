@@ -1,6 +1,7 @@
 import { APIConfig } from "../APIConfig/APIConfig";
 import axios from 'axios';
-
+import { IncludingCredentials } from "../HelperTools/IncludingCredentials";
+IncludingCredentials();
 export const SupplierService = {
     AllSuppliers: ({token, page, pageSize, SortColumn, SortDir, Search, SearchColumn, includeOnlyActive = true})=>{
         let url = `${APIConfig.BASE_URL}${APIConfig.Supplier.Get}/${includeOnlyActive}?`;

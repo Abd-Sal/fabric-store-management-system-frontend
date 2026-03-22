@@ -1,6 +1,7 @@
 import { APIConfig } from "../APIConfig/APIConfig";
 import axios from 'axios';
-
+import { IncludingCredentials } from "../HelperTools/IncludingCredentials";
+IncludingCredentials();
 export const PaymentService = {
     AllPayments: ({token, page, pageSize, From, To, Search}) => {
         let url = `${APIConfig.BASE_URL}${APIConfig.Payment.Get}?`;

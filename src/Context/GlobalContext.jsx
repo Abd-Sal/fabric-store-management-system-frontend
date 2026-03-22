@@ -1,21 +1,27 @@
 import { createContext, useEffect, useState } from "react";
 import LoadingPartPage from "../Components/Common/LoadingPartPage";
+import { AuthImplementations } from "../Code/AuthImplementations";
 
 export const GlobalContext = createContext(null);
 
 export const GlobalContextProvider = ({children}) => {
-    const [authInfo, setAuthInfo] = useState({});
+    const [authInfo, setAuthInfo] = useState({})
     const [isInitialized, setIsInitialized] = useState(false)
     const [isLoading, setIsLoading] = useState(true);
-    
+        
+    const verify = () => {
+        return AuthImplementations.SendVerify({
+            onSuccess: setAuthInfo
+        })
+    }
+
     const checkUserSigningIn = ()=>{
         try{
-            let auth = localStorage.getItem('auth');
-            if(auth){
-                setAuthInfo(JSON.parse(auth))
+            if(verify()){
                 setIsInitialized(true)
             }
             else{
+                setAuthInfo({})
                 setIsInitialized(false)
             }
         }catch(error){

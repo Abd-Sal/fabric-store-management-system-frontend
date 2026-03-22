@@ -2,7 +2,9 @@ export const APIConfig = {
     BASE_URL: `https://192.168.1.111:7093/api`,
     BASE_DOMAIN: `https://192.168.1.111:7093`,
     Auth: {
-        Login: "/auth"
+        Login: "/auth/login",
+        Logout: "/auth/logout",
+        Verify: "/auth/verify"
     },
     Customer:{
         Get: "/customers",

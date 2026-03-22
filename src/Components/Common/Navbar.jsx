@@ -19,7 +19,7 @@ function ColorSchemesExample() {
       >
         <div className='w-100 d-flex flex-column justify-content-start align-items-start gap-3'>
             <NavLink className={`fw-bold text-white w-100 d-flex jusityf-content-start align-items-center text-decoration-none border-0 border-bottom b-btn-hover py-3`} to={OurRoutes.Home}>الرئيسية</NavLink>
-            <NavLink className={`fw-bold text-white w-100 d-flex jusityf-content-start align-items-center text-decoration-none border-0 border-bottom b-btn-hover py-3`} to={OurRoutes.Products}>المنتجات</NavLink>
+            <NavLink className={`fw-bold text-white w-100 d-flex jusityf-content-start align-items-center text-decoration-none border-0 border-bottom b-btn-hover py-3`} to={OurRoutes.Products}>المواد</NavLink>
             {/* Sales */}
             <Dropdown className='w-100'>
                 <Dropdown.Toggle
@@ -93,7 +93,7 @@ function ColorSchemesExample() {
             <div className='w-50'>
                 <Nav className="me-auto d-flex justify-content-center align-items-center gap-4">
                     <Nav.Link as={NavLink} to={OurRoutes.Home} end>الرئيسية</Nav.Link>
-                    <Nav.Link as={NavLink} to={OurRoutes.Products}>المنتجات</Nav.Link>
+                    <Nav.Link as={NavLink} to={OurRoutes.Products}>المواد</Nav.Link>
                     {/* Purchases And Expenses*/}
                     <Dropdown>
                       <Dropdown.Toggle variant="dark" id="dropdown-basic">
